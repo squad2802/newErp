@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "290875796750",
+    "project_id": "erp-management-a8e0c",
+    "storage_bucket": "erp-management-a8e0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290875796750:android:f56e89ce6f281ae11efb5f",
+        "android_client_info": {
+          "package_name": "com.newproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290875796750-tolhi01rtidqn8h4okc3dvauihsrkl9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJvIivexh7O2bA3A5sLk-xQ1Sbqxr4I3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290875796750-tolhi01rtidqn8h4okc3dvauihsrkl9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
