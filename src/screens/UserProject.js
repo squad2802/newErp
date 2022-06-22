@@ -9,23 +9,9 @@ import {
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Avatar} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function Todolist({navigation, route}) {
+export default function UserProject({navigation, route}) {
   const [users, setUsers] = useState([]);
-
-  // delete user
-  const deleteUserById = async id => {
-    await firestore()
-      .collection('userList')
-      .doc(id)
-      .delete()
-      .then(() => {
-        console.log('user deleted');
-      });
-    const filterData = users.filter(item => item.id !== id);
-    setUsers(filterData);
-  };
 
   useEffect(() => {
     const subscriber = firestore()
@@ -51,25 +37,16 @@ export default function Todolist({navigation, route}) {
           data={users}
           keyExtractor={index => index.toString()}
           renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('TPass', item)}>
+            <TouchableOpacity onPress={() => navigation.navigate('Desc', item)}>
               <View style={styles.listTitle}>
-                <Avatar.Image
-                  size={50}
-                  source={require('../assets/mainLogo.jpeg')}
-                  // label={item.name.substring(0, 2).toUpperCase()}
-                  backgroundColor="white"
+                <Avatar.Text
+                  size={40}
+                  label={item.id.substring(0, 2).toUpperCase()}
+                  backgroundColor="black"
+                  fontWeight="bold"
                 />
                 <View style={{flexDirection: 'column'}}>
-                  <Text style={styles.title}>{item.name}</Text>
-                </View>
-
-                <View style={styles.containerIcons}>
-                  <TouchableOpacity
-                    style={styles.deleteIcon}
-                    onPress={() => deleteUserById(item.id)}>
-                    <Icon name="delete" size={25} />
-                  </TouchableOpacity>
+                  <Text style={styles.title}>{item.id}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -91,15 +68,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'silver',
+    backgroundColor: 'orange',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
     color: 'black',
     fontWeight: 'bold',
-    paddingLeft: 20,
-    fontSize: 20,
+    paddingLeft: 5,
+    fontSize: 12,
   },
   containerIcons: {
     flexDirection: 'row',

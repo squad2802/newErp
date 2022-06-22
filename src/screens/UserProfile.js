@@ -2,76 +2,77 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  ScrollView,
   TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
   Alert,
-  android,
-  handleCodeInApp,
 } from 'react-native';
 import React from 'react';
-import {Avatar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Avatar} from 'react-native-paper';
 
-export default function TimePass({route, navigation}) {
-  // email Invitation
-  const emailInvite = () => {
-    if (!route.params.email == 0) {
-      // Alert.alert(route.params.email);
-
-      // URL you want to redirect back to. The domain (www.example.com) for this
-      // URL must be in the authorized domains list in the Firebase Console.
-      url: 'https://squadmindserplogins.page.link/Rdse',
-        // This must be true.
-        (handleCodeInApp = true),
-        (android = {
-          packageName: 'com.example.android',
-          installApp: true,
-        });
-    } else {
-      Alert.alert('email not exist');
-    }
-  };
-
+export default function UserProfile() {
   // edit user
   const editUser = () => {
-    if (!route.params.name || route.params.email || route.params.phone) {
-      // alert(route.params.name);
-      navigation.navigate('AHome');
-    } else {
-      Alert.alert('doesnot exist');
-    }
+    Alert.alert('edit User');
+  };
+
+  // user message
+  const userMessage = () => {
+    Alert.alert('edit User');
+  };
+
+  // user call
+  const usercall = () => {
+    Alert.alert('user Calling');
+  };
+
+  // user email
+  const userEmail = () => {
+    Alert.alert('user Mailing');
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.imageView}>
+          <Icon
+            name="notifications"
+            size={30}
+            color="yellow"
+            style={{marginLeft: '90%'}}
+          />
           <Avatar.Image
             size={100}
             source={require('../assets/mainLogo.jpeg')}
           />
-          <Text style={styles.userText}>{route.params.name}</Text>
-          <Text style={styles.phoneText}>{route.params.phone}</Text>
-          <Text style={styles.phoneEmail}>{route.params.email}</Text>
+
+          <Text style={styles.userText}>name</Text>
+          <Text style={styles.phoneText}>route.params.phone</Text>
+          <Text style={styles.phoneEmail}>route.params.email</Text>
 
           <View style={styles.viewIcons}>
             <TouchableOpacity onPress={() => editUser()}>
               <Icon name="edit" size={30} color="white" />
               <Text style={{color: 'white'}}>Edit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.touchStyle}>
-              <Icon name="camera" size={30} color="white" />
-              <Text style={{color: 'white'}}>Camera</Text>
+
+            <TouchableOpacity
+              style={styles.touchStyle}
+              onPress={() => userMessage()}>
+              <Icon name="message" size={30} color="white" />
+              <Text style={{color: 'white'}}>message</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+
+            <TouchableOpacity onPress={() => usercall()}>
               <Icon name="phone" size={30} color="white" />
               <Text style={{color: 'white'}}>Call</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={styles.touchStyle}
-              onPress={() => emailInvite()}>
-              <Icon name="send" size={30} color="white" />
+              onPress={() => userEmail()}>
+              <Icon name="email" size={30} color="white" />
               <Text style={{color: 'white'}}>Send</Text>
             </TouchableOpacity>
           </View>
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'black',
     alignItems: 'center',
-    padding: 15,
+    // padding: 5,
   },
   userText: {
     fontWeight: 'bold',

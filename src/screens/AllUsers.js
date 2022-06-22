@@ -9,23 +9,10 @@ import {
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Avatar} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function Todolist({navigation, route}) {
+export default function AllUsers({navigation, route}) {
   const [users, setUsers] = useState([]);
-
-  // delete user
-  const deleteUserById = async id => {
-    await firestore()
-      .collection('userList')
-      .doc(id)
-      .delete()
-      .then(() => {
-        console.log('user deleted');
-      });
-    const filterData = users.filter(item => item.id !== id);
-    setUsers(filterData);
-  };
 
   useEffect(() => {
     const subscriber = firestore()
@@ -52,7 +39,7 @@ export default function Todolist({navigation, route}) {
           keyExtractor={index => index.toString()}
           renderItem={({item}) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('TPass', item)}>
+              onPress={() => navigation.navigate('PView', item)}>
               <View style={styles.listTitle}>
                 <Avatar.Image
                   size={50}
@@ -61,15 +48,7 @@ export default function Todolist({navigation, route}) {
                   backgroundColor="white"
                 />
                 <View style={{flexDirection: 'column'}}>
-                  <Text style={styles.title}>{item.name}</Text>
-                </View>
-
-                <View style={styles.containerIcons}>
-                  <TouchableOpacity
-                    style={styles.deleteIcon}
-                    onPress={() => deleteUserById(item.id)}>
-                    <Icon name="delete" size={25} />
-                  </TouchableOpacity>
+                  <Text style={styles.title}>{item.email}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -91,7 +70,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'silver',
+    backgroundColor: 'white',
     borderRadius: 15,
     marginTop: 4,
   },

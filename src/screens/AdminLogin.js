@@ -50,7 +50,7 @@ export default function AdminLogin({navigation}) {
           console.log(userList);
           if (userList) {
             console.log('successfully login ');
-            navigation.replace('Tlist'); // AHome
+            navigation.replace('UserList'); // AHome
           }
         });
     } catch (e) {

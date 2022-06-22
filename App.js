@@ -10,6 +10,8 @@ import AdminHome from './src/screens/AdminHome';
 import HomeScreen from './src/screens/HomeScreen';
 import Todolist from './src/screens/Todolist';
 import TimePass from './src/screens/timepass';
+import ProjectDesc from './src/screens/ProjectDesc';
+import ProfileView from './src/screens/ProfileView';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -34,7 +36,7 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomePage}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="AHome"
@@ -54,6 +56,16 @@ export default function App() {
         <Stack.Screen
           name="TPass"
           component={TimePass}
+          options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="Desc"
+          component={ProjectDesc}
+          options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="PView"
+          component={ProfileView}
           options={{headerShown: true}}
         />
       </Stack.Navigator>
