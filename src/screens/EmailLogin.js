@@ -30,9 +30,9 @@ export default function EmailLogin({navigation}) {
       }
     }
     if (userPassword != '') {
-      if (userPassword.length <= 6) {
+      if (userPassword.length < 6) {
         setPasswordError('password must be 6 character long');
-      } else if (userPassword.length >= 11) {
+      } else if (userPassword.length > 10) {
         setPasswordError('max 10 character password allowed');
       }
     }
@@ -46,7 +46,7 @@ export default function EmailLogin({navigation}) {
           console.log(userList);
           if (userList) {
             console.log('successfully login ');
-            navigation.navigate('UHome');
+            navigation.navigate('Home');
           }
         });
     } catch (e) {

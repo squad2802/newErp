@@ -26,11 +26,11 @@ const Drawer = createDrawerNavigator();
 export default function HomePage() {
   return (
     <Drawer.Navigator
-      initialRouteName="userHome"
+      initialRouteName="User Home"
       // drawerContent={props => <CustomDrawer {...props} />}
     >
       <Drawer.Screen
-        name="userHome"
+        name="User Home"
         component={HomeScreen}
         options={{
           headerShown: true,

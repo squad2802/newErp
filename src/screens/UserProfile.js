@@ -19,7 +19,7 @@ export default function UserProfile() {
 
   // user message
   const userMessage = () => {
-    Alert.alert('edit User');
+    Alert.alert('send message');
   };
 
   // user call
@@ -39,7 +39,7 @@ export default function UserProfile() {
           <Icon
             name="notifications"
             size={30}
-            color="yellow"
+            color="#B5952F"
             style={{marginLeft: '90%'}}
           />
           <Avatar.Image

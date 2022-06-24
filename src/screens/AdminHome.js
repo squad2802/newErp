@@ -95,7 +95,7 @@ export default function AdminHome({navigation}) {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
-        <Title style={styles.title}>ADD USER</Title>
+        <Title style={styles.title}>UPDATE USER</Title>
 
         {/* user name */}
         <TextInput
@@ -140,7 +140,7 @@ export default function AdminHome({navigation}) {
           mode="contained"
           style={styles.button}
           onPress={() => handleAddUser()}>
-          Register
+          update
         </Button>
       </View>
     </SafeAreaView>

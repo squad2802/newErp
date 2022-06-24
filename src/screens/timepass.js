@@ -6,31 +6,28 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
-  android,
-  handleCodeInApp,
 } from 'react-native';
 import React from 'react';
 import {Avatar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {firebase} from '@react-native-firebase/firestore';
+import {auth} from '@react-native-firebase/auth';
 
 export default function TimePass({route, navigation}) {
   // email Invitation
-  const emailInvite = () => {
+  const emailInvite = async () => {
     if (!route.params.email == 0) {
-      // Alert.alert(route.params.email);
-
-      // URL you want to redirect back to. The domain (www.example.com) for this
-      // URL must be in the authorized domains list in the Firebase Console.
-      url: 'https://squadmindserplogins.page.link/Rdse',
-        // This must be true.
-        (handleCodeInApp = true),
-        (android = {
+      var actionCodeSettings = {
+        url: 'https://squadmindserplogins.page.link/Rdse',
+        handleCodeInApp: true,
+        android: {
           packageName: 'com.example.android',
           installApp: true,
-        });
-    } else {
-      Alert.alert('email not exist');
+        },
+      };
     }
+    return auth().sendSignInLinkToEmail(route.params.email, actionCodeSettings)
+    .then(Alert.alert('email sent', 'inform the user'))
   };
 
   // edit user

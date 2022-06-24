@@ -8,7 +8,7 @@ import {
   Keyboard,
 } from 'react-native';
 import React, {useState, createRef, useEffect} from 'react';
-import {Button, TextInput} from 'react-native-paper';
+import {Button, TextInput, Title} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 
 export default function AdminLogin({navigation}) {
@@ -36,33 +36,32 @@ export default function AdminLogin({navigation}) {
         setPasswordError('password must be 6 character long');
       } else if (adminPassword.length >= 11) {
         setPasswordError('max 10 character password allowed');
+      } else {
+        setPasswordError('');
       }
     }
   }, [adminEmail, adminPassword]);
 
   // login with admin
   const handleAdminLoginButton = async () => {
-    // console.log(data);
     try {
       await auth()
         .signInWithEmailAndPassword(adminEmail, adminPassword)
         .then(userList => {
           console.log(userList);
+          console.log('Register Successfully. Please Login to Precess');
           if (userList) {
             console.log('successfully login ');
-            navigation.replace('UserList'); // AHome
+            navigation.replace('UserList'); //UserList
           }
         });
     } catch (e) {
       console.log(e);
       if (e.code === 'auth/invalid-email') {
-        // console.log('email is not valid');
         setPasswordError('email is not valid');
       } else if (e.code === 'auth/user not found') {
-        // console.log('user not find');
         setPasswordError('user not found');
       } else {
-        // console.log('wrong password');
         setPasswordError('wrong password');
       }
     }
@@ -71,6 +70,7 @@ export default function AdminLogin({navigation}) {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.containerView}>
+          <Title>Admin Login</Title>
           <Image
             source={require('../assets/mainLogo.jpeg')}
             style={styles.containerImage}
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   containerView: {
     alignItems: 'center',
-    marginTop: 130,
+    marginTop: 100,
   },
   containerImage: {
     height: 150,
