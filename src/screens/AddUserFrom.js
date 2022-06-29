@@ -10,7 +10,7 @@ import React, {useState, createRef, useEffect} from 'react';
 import {Button, TextInput, Title} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 
-export default function AdminHome({route, navigation}) {
+export default function AddUserFrom({navigation}) {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [phone, setPhone] = useState('+91');
@@ -19,37 +19,13 @@ export default function AdminHome({route, navigation}) {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  let [userId, setUserId] = useState('');
-  const {itemId, otherParam} = route.params;
 
-  // find user
-  // useEffect(() => {
-  //   if (userId) {
-  //     firestore()
-  //       .collection('userList')
-  //       .doc(userId)
-  //       .get()
-  //       .then(documentSnapshot => {
-  //         if (documentSnapshot.exists) {
-  //           setUserName(documentSnapshot.data.name);
-  //           setUserEmail(documentSnapshot.data.email);
-  //           setPhone(documentSnapshot.data.phone);
-  //         } else {
-  //           setUserName('');
-  //           setUserEmail('');
-  //           setPhone('');
-  //         }
-  //       });
-  //   }
-  // });
-
-  // handle update user
-  const handleUpDate = async () => {
-    if (userId && userName && userEmail && phone != null) {
+  //  handle add user Button
+  const handleAddUser = async () => {
+    if (userName && userEmail && phone) {
       await firestore()
         .collection('userList')
-        .doc(userId)
-        .update({
+        .add({
           name: userName,
           email: userEmail,
           phone: phone,
@@ -57,11 +33,11 @@ export default function AdminHome({route, navigation}) {
         .then(() => {
           Alert.alert(
             'Success',
-            'You are Update Successfully',
+            'You are Registered Successfully',
             [
               {
                 text: 'Ok',
-                onPress: () => navigation.navigate('UserList'),
+                onPress: () => navigation.navigate('TPass'),
               },
             ],
             {cancelable: false},
@@ -97,6 +73,7 @@ export default function AdminHome({route, navigation}) {
       }
       return;
     }
+
     if (userEmail != '') {
       if (!regEx.test(userEmail)) {
         setEmailError('Provide a valid email');
@@ -105,10 +82,9 @@ export default function AdminHome({route, navigation}) {
       }
       return;
     }
+
     if (phone != '') {
-      if (phone.length < 3) {
-        setPhoneError('first enter country code');
-      } else if (phone.length < 13) {
+      if (phone.length < 13) {
         setPhoneError('number must be 10 character');
       } else {
         setPhoneError('');
@@ -116,12 +92,10 @@ export default function AdminHome({route, navigation}) {
       return;
     }
   }, [userName, userEmail, phone]);
-
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
-        <Title style={styles.title}>UPDATE USER</Title>
-        <Text>itemId: {JSON.stringify(itemId)}</Text>
+        <Title style={styles.title}>Add User</Title>
 
         {/* user name */}
         <TextInput
@@ -162,11 +136,12 @@ export default function AdminHome({route, navigation}) {
           onChangeText={text => setPhone(text)}
         />
         {phoneError != '' && <Text style={{color: 'red'}}>{phoneError}</Text>}
+
         <Button
           mode="contained"
           style={styles.button}
-          onPress={() => handleUpDate()}>
-          update
+          onPress={() => handleAddUser()}>
+          add user
         </Button>
       </View>
     </SafeAreaView>

@@ -107,14 +107,12 @@ const styles = StyleSheet.create({
   phoneEmail: {
     fontWeight: '600',
     fontSize: 15,
-    // marginTop: 10,
     color: 'silver',
   },
   viewIcons: {
     flexDirection: 'row',
     marginTop: 20,
     alignSelf: 'center',
-    // backgroundColor: 'red',
     marginLeft: 40,
   },
   touchStyle: {

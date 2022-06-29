@@ -9,7 +9,8 @@ export default function WelcomePage({navigation}) {
     setTimeout(() => {
       setAnimating(false);
       // navigation.replace('Login'); // Login
-      navigation.replace(auth().currentUser ? 'Home' : 'Dashboard');
+      // navigation.replace(auth().currentUser ? 'Login' : 'Home');
+      navigation.replace(auth().currentUser ? 'Home' : 'Login');
     }, 5000);
   }, [navigation]);
   return (

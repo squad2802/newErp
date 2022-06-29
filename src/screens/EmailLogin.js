@@ -11,6 +11,7 @@ import React, {useState, createRef, useEffect} from 'react';
 import {Button, TextInput, Title} from 'react-native-paper';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import auth from '@react-native-firebase/auth';
+import 'react-native-gesture-handler';
 
 export default function EmailLogin({navigation}) {
   const [userEmail, setUserEmail] = useState('');
@@ -28,40 +29,67 @@ export default function EmailLogin({navigation}) {
       } else {
         setEmailError('');
       }
+      return;
     }
     if (userPassword != '') {
-      if (userPassword.length <= 6) {
+      if (userPassword.length < 6) {
         setPasswordError('password must be 6 character long');
-      } else if (userPassword.length >= 11) {
+      } else if (userPassword.length > 10) {
         setPasswordError('max 10 character password allowed');
+      } else {
+        setPasswordError('');
       }
     }
   }, [userEmail, userPassword]);
+
   // handle user login button
   const handleLoginButton = async () => {
-    try {
-      await auth()
-        .signInWithEmailAndPassword(userEmail, userPassword)
-        .then(userList => {
-          console.log(userList);
-          if (userList) {
-            console.log('successfully login ');
-            navigation.navigate('UHome');
-          }
-        });
-    } catch (e) {
-      // console.log(e);
-      if (e.code === 'auth/invalid-email') {
-        setPasswordError('email is not valid');
-        // console.log('email is not valid');
-      } else if (e.code === 'auth/user not found') {
-        setPasswordError('user not found');
-        // console.log('user not find');
-      } else {
-        setPasswordError('wrong password');
-        // console.log('wrong password');
-      }
-    }
+    // try {
+    //   await auth()
+    //     .signInWithEmailAndPassword(userEmail, userPassword)
+    //     .then(userList => {
+    //       console.log(userList);
+    //       if (userList) {
+    //         console.log('successfully login ');
+    //         navigation.navigate('Home');
+    //       }
+    //     });
+    // } catch (e) {
+    //   // console.log(e);
+    //   if (e.code === 'auth/invalid-email') {
+    //     setPasswordError('email is not valid');
+    //     // console.log('email is not valid');
+    //   } else if (e.code === 'auth/user not found') {
+    //     setPasswordError('user not found');
+    //     // console.log('user not find');
+    //   } else {
+    //     setPasswordError('wrong password');
+    //     // console.log('wrong password');
+    //   }
+    // }
+
+    await auth()
+      .signInWithEmailAndPassword(userEmail, userPassword)
+      .then(userList => {
+        console.log(userList);
+        if (userList) {
+          console.log('successfully login');
+          navigation.replace('Home');
+        }
+      })
+      .catch(error => {
+        // console.log(error);
+        if (error.code === 'auth/invalid-email') {
+          setPasswordError('email is not valid');
+          // console.log(error);
+        } else if (error.code === 'auth/user-not-found') {
+          setPasswordError('user not found');
+          // console.log('NO user Found');
+        } else {
+          setPasswordError('wrong password');
+          // console.log('check your email id or paassword');
+        }
+      });
   };
 
   return (
@@ -76,7 +104,7 @@ export default function EmailLogin({navigation}) {
         <View style={styles.inputView}>
           <TextInput
             mode="outlined"
-            placeholder="User Email"
+            label="User Email"
             onSubmitEditing={() =>
               userPasswordRef.current && userPasswordRef.current.focus()
             }
@@ -90,7 +118,7 @@ export default function EmailLogin({navigation}) {
 
           <TextInput
             mode="outlined"
-            placeholder="User Password"
+            label="User Password"
             onSubmitEditing={dismissKeyboard}
             ref={userPasswordRef}
             blurOnSubmit={false}
@@ -134,7 +162,8 @@ const styles = StyleSheet.create({
   containerTitle: {
     alignSelf: 'center',
     color: 'blue',
-    marginTop: '45%',
+    marginTop: '67%',
+    position: 'relative',
   },
   inputView: {
     marginRight: '10%',

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {Avatar} from 'react-native-paper';
+import {Avatar, FAB} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Todolist({navigation, route}) {
@@ -31,15 +31,15 @@ export default function Todolist({navigation, route}) {
     const subscriber = firestore()
       .collection('userList')
       .onSnapshot(querySnapshot => {
-        const users = [];
-        querySnapshot.forEach(documentSnapshot => {
-          users.push({
-            ...documentSnapshot.data(),
-            id: documentSnapshot.id,
+        const users1 = [];
+        querySnapshot.forEach(doc => {
+          users1.push({
+            ...doc.data(),
+            id: doc.id,
           });
         });
-        setUsers(users);
-        console.log(users);
+        setUsers(users1);
+        console.log('adminList User=======>', users1);
       });
     return () => subscriber();
   }, []);
@@ -49,7 +49,6 @@ export default function Todolist({navigation, route}) {
       <View>
         <FlatList
           data={users}
-          keyExtractor={index => index.toString()}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => navigation.navigate('TPass', item)}>
@@ -78,6 +77,15 @@ export default function Todolist({navigation, route}) {
           showsHorizontalScrollIndicator={false}
         />
       </View>
+
+      <FAB style={styles.addButton} />
+      <Icon
+        name="add"
+        size={40}
+        color="white"
+        style={styles.fabButton}
+        onPress={() => navigation.navigate('AddUser')}
+      />
     </SafeAreaView>
   );
 }
@@ -109,5 +117,15 @@ const styles = StyleSheet.create({
   deleteIcon: {
     marginLeft: 10,
     marginRight: 10,
+  },
+  addButton: {
+    position: 'absolute',
+    marginTop: 685,
+    marginLeft: 320,
+  },
+  fabButton: {
+    position: 'absolute',
+    marginTop: 693,
+    marginLeft: 327,
   },
 });

@@ -11,22 +11,22 @@ import firestore from '@react-native-firebase/firestore';
 import {Avatar} from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function AllUsers({navigation, route}) {
+export default function AllUsers({navigation}) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const subscriber = firestore()
       .collection('userList')
       .onSnapshot(querySnapshot => {
-        const users = [];
-        querySnapshot.forEach(documentSnapshot => {
-          users.push({
-            ...documentSnapshot.data(),
-            id: documentSnapshot.id,
+        const users1 = [];
+        querySnapshot.forEach(doc => {
+          users1.push({
+            ...doc.data(),
+            id: doc.id,
           });
         });
-        setUsers(users);
-        console.log(users);
+        setUsers(users1);
+        // console.log('userProject ====>', users1);
       });
     return () => subscriber();
   }, []);
@@ -36,7 +36,6 @@ export default function AllUsers({navigation, route}) {
       <View>
         <FlatList
           data={users}
-          keyExtractor={index => index.toString()}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => navigation.navigate('PView', item)}>

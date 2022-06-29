@@ -6,38 +6,39 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
-  android,
-  handleCodeInApp,
 } from 'react-native';
 import React from 'react';
 import {Avatar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import 'react-native-gesture-handler';
 
-export default function TimePass({route, navigation}) {
+export default function TimePass({route, navigation, props}) {
   // email Invitation
-  const emailInvite = () => {
-    if (!route.params.email == 0) {
-      // Alert.alert(route.params.email);
-
-      // URL you want to redirect back to. The domain (www.example.com) for this
-      // URL must be in the authorized domains list in the Firebase Console.
-      url: 'https://squadmindserplogins.page.link/Rdse',
-        // This must be true.
-        (handleCodeInApp = true),
-        (android = {
-          packageName: 'com.example.android',
-          installApp: true,
-        });
-    } else {
-      Alert.alert('email not exist');
-    }
+  const emailInvite = async () => {
+    // if (!route.params.email == 0) {
+    //   var actionCodeSettings = {
+    //     url: 'https://squadmindserplogins.page.link/Rdse',
+    //     handleCodeInApp: true,
+    //     android: {
+    //       packageName: 'com.example.android',
+    //       installApp: true,
+    //     },
+    //   };
+    // }
+    // return auth()
+    //   .sendSignInLinkToEmail(route.params.email, actionCodeSettings)
+    //   .then(Alert.alert('email sent', 'inform the user'));
+    // Alert.alert('send invitation');
   };
 
   // edit user
   const editUser = () => {
     if (!route.params.name || route.params.email || route.params.phone) {
       // alert(route.params.name);
-      navigation.navigate('AHome');
+      navigation.navigate('AHome', {
+        itemId: 86,
+        otherParams: 'anything you want here',
+      });
     } else {
       Alert.alert('doesnot exist');
     }
@@ -51,6 +52,7 @@ export default function TimePass({route, navigation}) {
             size={100}
             source={require('../assets/mainLogo.jpeg')}
           />
+          {/* <Text style={{color: 'white'}}>{route.params.id}</Text> */}
           <Text style={styles.userText}>{route.params.name}</Text>
           <Text style={styles.phoneText}>{route.params.phone}</Text>
           <Text style={styles.phoneEmail}>{route.params.email}</Text>
@@ -64,7 +66,7 @@ export default function TimePass({route, navigation}) {
               <Icon name="camera" size={30} color="white" />
               <Text style={{color: 'white'}}>Camera</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => alert(route.params.phone)}>
               <Icon name="phone" size={30} color="white" />
               <Text style={{color: 'white'}}>Call</Text>
             </TouchableOpacity>
@@ -104,14 +106,12 @@ const styles = StyleSheet.create({
   phoneEmail: {
     fontWeight: '600',
     fontSize: 15,
-    // marginTop: 10,
     color: 'silver',
   },
   viewIcons: {
     flexDirection: 'row',
     marginTop: 20,
     alignSelf: 'center',
-    // backgroundColor: 'red',
     marginLeft: 40,
   },
   touchStyle: {

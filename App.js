@@ -12,6 +12,9 @@ import Todolist from './src/screens/Todolist';
 import TimePass from './src/screens/timepass';
 import ProjectDesc from './src/screens/ProjectDesc';
 import ProfileView from './src/screens/ProfileView';
+import AddUserFrom from './src/screens/AddUserFrom';
+import UserInformationNav from './src/navigate/UserInformationNav';
+import ConnectForm from './src/navigate/ConnectForm';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -29,14 +32,14 @@ export default function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Dashboard"
-          component={AdminLogin}
-          options={{headerShown: true}}
-        />
-        <Stack.Screen
           name="Home"
           component={HomePage}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Dashboard"
+          component={AdminLogin}
+          options={{headerShown: true}}
         />
         <Stack.Screen
           name="AHome"
@@ -67,6 +70,21 @@ export default function App() {
           name="PView"
           component={ProfileView}
           options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="AddUser"
+          component={AddUserFrom}
+          options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="Information"
+          component={UserInformationNav}
+          options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="Info"
+          component={ConnectForm}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
