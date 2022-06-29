@@ -10,22 +10,22 @@ import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Avatar} from 'react-native-paper';
 
-export default function UserProject({navigation, route}) {
+export default function UserProject({navigation}) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const subscriber = firestore()
       .collection('userList')
       .onSnapshot(querySnapshot => {
-        const users = [];
-        querySnapshot.forEach(documentSnapshot => {
-          users.push({
-            ...documentSnapshot.data(),
-            id: documentSnapshot.id,
+        const users1 = [];
+        querySnapshot.forEach(doc => {
+          users1.push({
+            ...doc.data(),
+            id: doc.id,
           });
         });
-        setUsers(users);
-        console.log(users);
+        // console.log('userProject ====>', users1);
+        setUsers(users1);
       });
     return () => subscriber();
   }, []);
@@ -35,10 +35,9 @@ export default function UserProject({navigation, route}) {
       <View>
         <FlatList
           data={users}
-          keyExtractor={index => index.toString()}
           renderItem={({item}) => (
             <TouchableOpacity onPress={() => navigation.navigate('Desc', item)}>
-              <View style={styles.listTitle}>
+              <View style={styles.listTitle} key={item.id}>
                 <Avatar.Text
                   size={40}
                   label={item.id.substring(0, 2).toUpperCase()}

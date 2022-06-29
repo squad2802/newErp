@@ -10,6 +10,7 @@ import {
 import React, {useState, createRef, useEffect} from 'react';
 import {Button, TextInput, Title} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
+import 'react-native-gesture-handler';
 
 export default function AdminLogin({navigation}) {
   const [adminEmail, setAdminEmail] = useState('');
@@ -48,7 +49,7 @@ export default function AdminLogin({navigation}) {
       await auth()
         .signInWithEmailAndPassword(adminEmail, adminPassword)
         .then(userList => {
-          console.log(userList);
+          // console.log(userList);
           console.log('Register Successfully. Please Login to Precess');
           if (userList) {
             console.log('successfully login ');

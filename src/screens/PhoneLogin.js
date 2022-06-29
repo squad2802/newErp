@@ -18,12 +18,13 @@ import {Button, Title} from 'react-native-paper';
 import React, {useState, useRef, useEffect} from 'react';
 // import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import auth from '@react-native-firebase/auth';
-// import 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 
 export default function PhoneLogin({navigation}) {
   const phoneRef = useRef();
   const [confirm, setConfirm] = useState(null);
   const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const [otpArray, setOtpArray] = useState('');
   const ref = useBlurOnFulfill({otpArray, cellCount: 6});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -31,6 +32,16 @@ export default function PhoneLogin({navigation}) {
     setOtpArray,
   });
   const [user, setUser] = useState(null);
+  // phone validation
+  useEffect(() => {
+    if (phone != '') {
+      if (phone.length < 13) {
+        setPhoneError('number must be 10 character');
+      } else {
+        setPhoneError('');
+      }
+    }
+  }, [phone]);
   // handle phone authentication
   const handleGetOtpButton = async () => {
     const confirmation = await auth().signInWithPhoneNumber(phone);
@@ -63,7 +74,7 @@ export default function PhoneLogin({navigation}) {
         console.log('Invalid code');
       } else {
         // console.log('you are login');
-        navigation.replace('UHome');
+        navigation.replace('Home');
       }
     }
   };
@@ -90,6 +101,9 @@ export default function PhoneLogin({navigation}) {
                 textContainerStyle={{paddingVertical: 0}}
                 onChangeFormattedText={setPhone}
               />
+              {phoneError != '' && (
+                <Text style={{color: 'red'}}>{phoneError}</Text>
+              )}
               <Button
                 mode="contained"
                 style={styles.containerButton}
@@ -161,8 +175,9 @@ const styles = StyleSheet.create({
   },
   containerTitle: {
     alignSelf: 'center',
-    marginTop: '60%',
+    marginTop: '83%',
     color: 'blue',
+    position: 'relative',
   },
   phoneView: {
     marginTop: 10,
@@ -180,7 +195,6 @@ const styles = StyleSheet.create({
   containerOtp: {
     marginRight: '10%',
     marginLeft: '10%',
-    //     backgroundColor: 'white',
   },
   codeFieldRoot: {
     marginTop: 20,
