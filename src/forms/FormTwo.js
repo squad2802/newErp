@@ -1,10 +1,9 @@
 import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
-import React, {useState, createRef} from 'react';
+import React, {useState, createRef, useEffect} from 'react';
 import {Title, TextInput, Button} from 'react-native-paper';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
-import { Firestore } from '@firebase/firestore';
+// import {Firestore} from '@firebase/firestore';
 import {firebase} from '@react-native-firebase/auth';
-import { useEffect } from 'react';
 
 export default function FormTwo({navigation}) {
   const [phone, setPhone] = useState('');
@@ -30,9 +29,9 @@ export default function FormTwo({navigation}) {
 
   // update user information from firebase
   const handleUpdate = async () => {};
-  useEffect(() => {
-    firebase.auth().currentUser.updateProfile(handleUpdate);
-  }, []);
+  // useEffect(() => {
+  //   firebase.auth().currentUser.updateProfile(handleUpdate);
+  // }, []);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>

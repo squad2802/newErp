@@ -1,24 +1,21 @@
+// ======================================================== user navigation and logout =====================================================
 import React from 'react';
 import {
   createDrawerNavigator,
-  // DrawerContentScrollView,
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Alert, SafeAreaView, Text, View} from 'react-native';
+import {Alert, SafeAreaView, Text, View, StyleSheet} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import auth from '@react-native-firebase/auth';
 
-import HomeScreen from '../screens/HomeScreen';
+import UserHomeScreen from '../screens/UserHomeScreen';
 import UserProfile from '../screens/UserProfile';
-import UserProject from '../screens/UserProject';
-import AllUsers from '../screens/AllUsers';
+import UserProjectList from '../screens/UserProjectList';
+import UserList from '../screens/UserList';
 
 // this component are used for drawer navigation (side menu)
 const Drawer = createDrawerNavigator();
-const handleSignOut = ({navigation}) => {
-  navigation.navigate('Login');
-};
 const CustomDrawer = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -31,23 +28,14 @@ const CustomDrawer = props => {
               size={30}
               color={color ? 'orange' : '#A9A9A9'}
             />
-            <Text
-              style={{
-                // color: '#808080',
-                color: 'orange',
-                fontWeight: '500',
-                paddingLeft: 30,
-                paddingTop: 4,
-              }}>
-              Logout
-            </Text>
+            <Text style={styles.logoutContainer}>Logout</Text>
           </View>
         )}
-        onPress={({navigation}) => {
+        onPress={() => {
           props.navigation.toggleDrawer();
           Alert.alert(
             'Logout',
-            'Are you sure? You want to logout?',
+            'Are you sure? You want to logout',
             [
               {
                 text: 'Cancel',
@@ -60,11 +48,17 @@ const CustomDrawer = props => {
                 onPress: () => {
                   auth()
                     .signOut()
-                    .then(() => navigation.replace('Login'))
+                    .then(() => {
+                      // AsyncStorage.clear();
+                      props.navigation.replace('Login');
+                    })
                     .catch(error => {
                       console.log(error);
-                      if (error.code === 'auth/no-current-user')
-                        navigation.replace('Login');
+                      if (error.code === 'auth/no-current-user') {
+                        props.navigation.replace('Login');
+                      } else {
+                        Alert.alert(error);
+                      }
                     });
                 },
               },
@@ -76,6 +70,8 @@ const CustomDrawer = props => {
     </SafeAreaView>
   );
 };
+
+// main component
 export default function HomePage() {
   return (
     <Drawer.Navigator
@@ -83,8 +79,9 @@ export default function HomePage() {
       drawerContent={props => <CustomDrawer {...props} />}>
       <Drawer.Screen
         name="UserHome"
-        component={HomeScreen}
+        component={UserHomeScreen}
         options={{
+          title: 'Home',
           headerShown: true,
           drawerIcon: ({focused}) => (
             <MaterialIcons
@@ -99,6 +96,7 @@ export default function HomePage() {
         name="Profile"
         component={UserProfile}
         options={{
+          title: 'Profile',
           headerShown: true,
           drawerIcon: ({focused}) => (
             <MaterialIcons
@@ -111,8 +109,9 @@ export default function HomePage() {
       />
       <Drawer.Screen
         name="Project"
-        component={UserProject}
+        component={UserProjectList}
         options={{
+          title: 'Projects',
           headerShown: true,
           drawerIcon: ({focused}) => (
             <MaterialIcons
@@ -125,8 +124,9 @@ export default function HomePage() {
       />
       <Drawer.Screen
         name="AllUser"
-        component={AllUsers}
+        component={UserList}
         options={{
+          title: 'Users',
           headerShown: true,
           drawerIcon: ({focused}) => (
             <MaterialIcons
@@ -140,3 +140,12 @@ export default function HomePage() {
     </Drawer.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  logoutContainer: {
+    color: 'orange',
+    fontWeight: '500',
+    paddingLeft: 30,
+    paddingTop: 4,
+  },
+});

@@ -1,3 +1,4 @@
+// ======================================================== user Project list =====================================================
 import {
   StyleSheet,
   Text,
@@ -9,9 +10,8 @@ import {
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Avatar} from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function AllUsers({navigation}) {
+export default function UserProject({navigation}) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,6 @@ export default function AllUsers({navigation}) {
           });
         });
         setUsers(users1);
-        // console.log('userProject ====>', users1);
       });
     return () => subscriber();
   }, []);
@@ -37,14 +36,13 @@ export default function AllUsers({navigation}) {
         <FlatList
           data={users}
           renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('PView', item)}>
-              <View style={styles.listTitle}>
-                <Avatar.Image
-                  size={50}
-                  source={require('../assets/mainLogo.jpeg')}
-                  // label={item.name.substring(0, 2).toUpperCase()}
-                  backgroundColor="white"
+            <TouchableOpacity onPress={() => navigation.navigate('Desc', item)}>
+              <View style={styles.listTitle} key={item.id}>
+                <Avatar.Text
+                  size={40}
+                  label={item.email.substring(0, 2).toUpperCase()}
+                  backgroundColor="black"
+                  fontWeight="bold"
                 />
                 <View style={{flexDirection: 'column'}}>
                   <Text style={styles.title}>{item.email}</Text>
@@ -69,15 +67,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'orange',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
     color: 'black',
     fontWeight: 'bold',
-    paddingLeft: 20,
-    fontSize: 20,
+    paddingLeft: 5,
+    fontSize: 16,
   },
   containerIcons: {
     flexDirection: 'row',

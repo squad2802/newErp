@@ -1,3 +1,4 @@
+// ======================================================== User Project details =====================================================
 import {
   StyleSheet,
   Text,
@@ -11,7 +12,7 @@ import React from 'react';
 import {Avatar} from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ProjectDesc({route, navigation}) {
+export default function ProjectDesc({route}) {
   // Project Details
   const ProjectDetails = () => {
     Alert.alert('Project Details');

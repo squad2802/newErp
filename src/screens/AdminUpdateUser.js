@@ -1,3 +1,4 @@
+// ======================================================== Admin update user =====================================================
 import {
   StyleSheet,
   Text,
@@ -19,36 +20,23 @@ export default function AdminHome({route, navigation}) {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  let [userId, setUserId] = useState('');
-  const {itemId, otherParam} = route.params;
+  const {itemId} = route.params;
+  const {itemName} = route.params;
+  const {itemEmail} = route.params;
+  const {itemPhone} = route.params;
 
-  // find user
-  // useEffect(() => {
-  //   if (userId) {
-  //     firestore()
-  //       .collection('userList')
-  //       .doc(userId)
-  //       .get()
-  //       .then(documentSnapshot => {
-  //         if (documentSnapshot.exists) {
-  //           setUserName(documentSnapshot.data.name);
-  //           setUserEmail(documentSnapshot.data.email);
-  //           setPhone(documentSnapshot.data.phone);
-  //         } else {
-  //           setUserName('');
-  //           setUserEmail('');
-  //           setPhone('');
-  //         }
-  //       });
-  //   }
-  // });
+  useEffect(() => {
+    setUserName(itemName);
+    setUserEmail(itemEmail);
+    setPhone(itemPhone);
+  }, [itemEmail, itemName, itemPhone]);
 
-  // handle update user
+  // update user name email or phone
   const handleUpDate = async () => {
-    if (userId && userName && userEmail && phone != null) {
+    if (itemId) {
       await firestore()
         .collection('userList')
-        .doc(userId)
+        .doc(itemId)
         .update({
           name: userName,
           email: userEmail,
@@ -57,7 +45,7 @@ export default function AdminHome({route, navigation}) {
         .then(() => {
           Alert.alert(
             'Success',
-            'You are Update Successfully',
+            'Update Successfully',
             [
               {
                 text: 'Ok',
@@ -81,7 +69,7 @@ export default function AdminHome({route, navigation}) {
           );
         });
     } else {
-      Alert.alert('Please fill all the details');
+      alert('something wrong');
     }
   };
 
@@ -106,10 +94,8 @@ export default function AdminHome({route, navigation}) {
       return;
     }
     if (phone != '') {
-      if (phone.length < 3) {
-        setPhoneError('first enter country code');
-      } else if (phone.length < 13) {
-        setPhoneError('number must be 10 character');
+      if (phone.length < 13) {
+        setPhoneError('number must be 10 digits');
       } else {
         setPhoneError('');
       }
@@ -121,12 +107,13 @@ export default function AdminHome({route, navigation}) {
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
         <Title style={styles.title}>UPDATE USER</Title>
-        <Text>itemId: {JSON.stringify(itemId)}</Text>
+        {/* <Text> userId: {itemId}</Text> */}
 
         {/* user name */}
         <TextInput
           mode="outlined"
-          placeholder="User Name"
+          label="User Name"
+          style={styles.textInput}
           onSubmitEditing={() =>
             userEmailRef.current && userEmailRef.current.focus()
           }
@@ -140,10 +127,11 @@ export default function AdminHome({route, navigation}) {
         {/* user email */}
         <TextInput
           mode="outlined"
-          placeholder="User Email"
+          label="User Email"
           ref={userEmailRef}
           onSubmitEditing={() => phoneRef.current && phoneRef.current.focus()}
           blurOnSubmit={false}
+          style={styles.textInput}
           returnKeyType="next"
           value={userEmail}
           onChangeText={text => setUserEmail(text)}
@@ -153,10 +141,11 @@ export default function AdminHome({route, navigation}) {
         {/* user phone */}
         <TextInput
           mode="outlined"
-          placeholder="User Phone"
+          label="User Phone"
           ref={phoneRef}
           onSubmitEditing={Keyboard.dismiss}
           blurOnSubmit={false}
+          style={styles.textInput}
           returnKeyType="done"
           value={phone}
           onChangeText={text => setPhone(text)}
@@ -186,7 +175,8 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '900',
     alignSelf: 'center',
-    color: 'black',
+    color: 'sliver',
+    marginBottom: 15,
   },
   button: {
     height: 50,
@@ -195,5 +185,10 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     borderRadius: 15,
+    backgroundColor: 'orange',
+  },
+  textInput: {
+    backgroundColor: 'white',
+    marginTop: 7,
   },
 });

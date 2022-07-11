@@ -1,3 +1,4 @@
+// ======================================================== User list =====================================================
 import {
   StyleSheet,
   Text,
@@ -10,7 +11,7 @@ import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Avatar} from 'react-native-paper';
 
-export default function UserProject({navigation}) {
+export default function AllUsers({navigation}) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -24,7 +25,6 @@ export default function UserProject({navigation}) {
             id: doc.id,
           });
         });
-        // console.log('userProject ====>', users1);
         setUsers(users1);
       });
     return () => subscriber();
@@ -36,16 +36,17 @@ export default function UserProject({navigation}) {
         <FlatList
           data={users}
           renderItem={({item}) => (
-            <TouchableOpacity onPress={() => navigation.navigate('Desc', item)}>
-              <View style={styles.listTitle} key={item.id}>
-                <Avatar.Text
-                  size={40}
-                  label={item.id.substring(0, 2).toUpperCase()}
-                  backgroundColor="black"
-                  fontWeight="bold"
+            <TouchableOpacity
+              onPress={() => navigation.navigate('PView', item)}>
+              <View style={styles.listTitle}>
+                <Avatar.Image
+                  size={50}
+                  source={require('../assets/mainLogo.jpeg')}
+                  // label={item.name.substring(0, 2).toUpperCase()}
+                  backgroundColor="white"
                 />
                 <View style={{flexDirection: 'column'}}>
-                  <Text style={styles.title}>{item.id}</Text>
+                  <Text style={styles.title}>{item.name}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -67,15 +68,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'orange',
+    backgroundColor: 'white',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
     color: 'black',
     fontWeight: 'bold',
-    paddingLeft: 5,
-    fontSize: 12,
+    paddingLeft: 20,
+    fontSize: 20,
   },
   containerIcons: {
     flexDirection: 'row',

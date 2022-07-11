@@ -1,3 +1,4 @@
+// ======================================================== Admin Login =====================================================
 import {
   SafeAreaView,
   View,
@@ -25,8 +26,8 @@ export default function AdminLogin({navigation}) {
     // console.log('----->2', adminEmail);
     if (adminEmail !== '') {
       if (!regEx.test(adminEmail)) {
-        setEmailError('Provide a valid email');
-      } else if (adminEmail != 'admin@squadminds.com') {
+        setEmailError('Please Enter a valid email');
+      } else if (adminEmail != 'Test@gmail.com') {
         setEmailError('you are not admin');
       } else {
         setEmailError('');
@@ -35,8 +36,8 @@ export default function AdminLogin({navigation}) {
     if (adminPassword != '') {
       if (adminPassword.length <= 6) {
         setPasswordError('password must be 6 character long');
-      } else if (adminPassword.length >= 11) {
-        setPasswordError('max 10 character password allowed');
+      } else if (adminPassword.length >= 13) {
+        setPasswordError('max 13 character password allowed');
       } else {
         setPasswordError('');
       }
@@ -48,11 +49,11 @@ export default function AdminLogin({navigation}) {
     try {
       await auth()
         .signInWithEmailAndPassword(adminEmail, adminPassword)
-        .then(userList => {
+        .then(user => {
           // console.log(userList);
-          console.log('Register Successfully. Please Login to Precess');
-          if (userList) {
-            console.log('successfully login ');
+          // console.log('Register Successfully. Please Login to Precess');
+          if (user) {
+            console.log('successfully admin login ');
             navigation.replace('UserList'); //UserList
           }
         });
@@ -108,11 +109,12 @@ export default function AdminLogin({navigation}) {
 
           <Button
             mode="contained"
+            disabled={!adminEmail || !adminPassword}
             style={styles.containerButton}
             onPress={handleAdminLoginButton}>
             Login With Admin
           </Button>
-          <Text style={{color: 'blue', marginTop: 5}}>
+          <Text style={{color: 'orange', marginTop: 5}}>
             Please login here with Admin Add Delete and Update User
           </Text>
         </View>
@@ -142,5 +144,6 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     marginTop: 15,
     borderRadius: 15,
+    backgroundColor: 'orange',
   },
 });

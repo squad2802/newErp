@@ -1,9 +1,11 @@
+// ================================================= Admin user list ==========================================
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
   FlatList,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -11,20 +13,37 @@ import firestore from '@react-native-firebase/firestore';
 import {Avatar, FAB} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function Todolist({navigation, route}) {
+export default function Todolist({navigation}) {
   const [users, setUsers] = useState([]);
 
-  // delete user
   const deleteUserById = async id => {
-    await firestore()
-      .collection('userList')
-      .doc(id)
-      .delete()
-      .then(() => {
-        console.log('user deleted');
-      });
-    const filterData = users.filter(item => item.id !== id);
-    setUsers(filterData);
+    Alert.alert(
+      'Logout',
+      'Are you sure? You want to logout',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            return null;
+          },
+        },
+        {
+          text: 'Confirm',
+          onPress: () => {
+            firestore()
+              .collection('userList')
+              .doc(id)
+              .delete()
+              .then(() => {
+                console.log('user deleted');
+              });
+            const filterData = users.filter(item => item.id !== id);
+            setUsers(filterData);
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   };
 
   useEffect(() => {
@@ -39,7 +58,6 @@ export default function Todolist({navigation, route}) {
           });
         });
         setUsers(users1);
-        console.log('adminList User=======>', users1);
       });
     return () => subscriber();
   }, []);
@@ -67,7 +85,7 @@ export default function Todolist({navigation, route}) {
                   <TouchableOpacity
                     style={styles.deleteIcon}
                     onPress={() => deleteUserById(item.id)}>
-                    <Icon name="delete" size={25} />
+                    <Icon name="delete" size={40} color="white" />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -120,12 +138,12 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
-    marginTop: 685,
+    marginTop: 695,
     marginLeft: 320,
   },
   fabButton: {
     position: 'absolute',
-    marginTop: 693,
-    marginLeft: 327,
+    marginTop: 703,
+    marginLeft: 328,
   },
 });

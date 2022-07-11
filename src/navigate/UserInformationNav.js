@@ -1,20 +1,3 @@
-// import React from 'react';
-// import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
-// import PageOne from '../forms/PageOne';
-// import PageTwo from '../forms/PageTwo';
-// import PageThree from '../forms/PageThree';
-
-// const Tab = createMaterialTopTabNavigator();
-// export default function UserInformationNav() {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name="Basic" component={PageOne} />
-//       <Tab.Screen name="Education" component={PageTwo} />
-//       <Tab.Screen name="Personal" component={PageThree} />
-//     </Tab.Navigator>
-//   );
-// }
 import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import {Title} from 'react-native-paper';
@@ -22,7 +5,8 @@ import {firebase} from '@react-native-firebase/auth';
 import {useEffect} from 'react';
 
 export default function UserInformationNav() {
-  const [user, setUser] = useState('');
+  const [, setUser] = useState('');
+
   // fetch data from firestore
   const fetchData = async () => {
     firebase.auth().onAuthStateChanged(user => {
@@ -43,124 +27,129 @@ export default function UserInformationNav() {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView showsHorizontalScrollIndicator={false}>
-        {/* <Title style={styles.titleHeading}>personal information</Title> */}
         <View style={styles.containerView}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>Pradeep</Text>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>Yaduvanshi</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>
+            Pradeep
+          </Text>
+          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>
+            Yaduvanshi
+          </Text>
         </View>
         <View style={styles.containerView}>
-          <Text>React-Native Mobile Developer</Text>
+          <Text style={styles.contentStyle}>React-Native Mobile Developer</Text>
         </View>
         <View style={styles.containerView}>
-          <Text>SquadMinds Pvt ltd</Text>
+          <Text style={styles.contentStyle}>SquadMinds Pvt ltd</Text>
         </View>
         <View style={styles.containerView}>
-          <Text>Pradeep@squadmindsinc.com</Text>
+          <Text style={styles.contentStyle}>Pradeep@squadmindsinc.com</Text>
         </View>
 
         <Title style={styles.titleHeading}>Current position</Title>
         <View style={styles.containerView}>
-          <Text>associate mobile developer</Text>
+          <Text style={styles.contentStyle}>associate mobile developer</Text>
         </View>
 
         <Title style={styles.titleHeading}>Education</Title>
         <View style={styles.containerView}>
-          <Text>MCA from Sharda university</Text>
+          <Text style={styles.contentStyle}>MCA from Sharda university</Text>
         </View>
 
         <Title style={styles.titleHeading}>Current address</Title>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Address</Text>
+          <Text style={styles.fontStyle}>Address:</Text>
           <Text>{'  '}</Text>
-          <Text>He 126, block 2, sector 61, phase 7</Text>
+          <Text style={styles.contentStyle}>
+            He 126, block 2, sector 61, phase 7
+          </Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Landmark's</Text>
+          <Text style={styles.fontStyle}>Landmark's:</Text>
           <Text>{'  '}</Text>
-          <Text>Flower market</Text>
+          <Text style={styles.contentStyle}>Flower market</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>City</Text>
+          <Text style={styles.fontStyle}>City:</Text>
           <Text>{'  '}</Text>
-          <Text>Mohali</Text>
+          <Text style={styles.contentStyle}>Mohali</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Country / Region</Text>
+          <Text style={styles.fontStyle}>Country / Region:</Text>
           <Text>{'  '}</Text>
-          <Text>uttar prddesh India </Text>
+          <Text style={styles.contentStyle}>Punjab India </Text>
         </View>
 
         <Title style={styles.titleHeading}>id Verification</Title>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Aadhar No</Text>
+          <Text style={styles.fontStyle}>Aadhar card:</Text>
           <Text>{'  '}</Text>
-          <Text>12345678901246632</Text>
+          <Text style={styles.contentStyle}>12345678901246632</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Pan No</Text>
+          <Text style={styles.fontStyle}>Pan card:</Text>
           <Text>{'  '}</Text>
-          <Text>12345678901246632</Text>
+          <Text style={styles.contentStyle}>12345678901246632</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Passport No</Text>
+          <Text style={styles.fontStyle}>Passport no:</Text>
           <Text>{'  '}</Text>
-          <Text>12345678901246632</Text>
+          <Text style={styles.contentStyle}>12345678901246632</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Drivering Licence No</Text>
+          <Text style={styles.fontStyle}>Driving licence:</Text>
           <Text>{'  '}</Text>
-          <Text>123456782</Text>
+          <Text style={styles.contentStyle}>123456782</Text>
         </View>
 
         <Title style={styles.titleHeading}>Vehicle information</Title>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Vehicle Type</Text>
+          <Text style={styles.fontStyle}>Vehicle Type:</Text>
           <Text>{'  '}</Text>
-          <Text>Car</Text>
+          <Text style={styles.contentStyle}>Car</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Vehicle No</Text>
+          <Text style={styles.fontStyle}>Vehicle No:</Text>
           <Text>{'  '}</Text>
-          <Text>Up80 EZ 4793 </Text>
+          <Text style={styles.contentStyle}>Up80 EZ 4793 </Text>
         </View>
 
         <Title style={styles.titleHeading}>Parent Contact</Title>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Father Name</Text>
+          <Text style={styles.fontStyle}>Father's Name:</Text>
           <Text>{'  '}</Text>
-          <Text>mr..... </Text>
+          <Text style={styles.contentStyle}>mr..... </Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Mother Name</Text>
+          <Text style={styles.fontStyle}>Mother's Name:</Text>
           <Text>{'  '}</Text>
-          <Text>Mrs...... </Text>
+          <Text style={styles.contentStyle}>Mrs...... </Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Contact No</Text>
+          <Text style={styles.fontStyle}>Contact No:</Text>
           <Text>{'  '}</Text>
-          <Text>8193931712 </Text>
+          <Text style={styles.contentStyle}>8193931712 </Text>
         </View>
 
         <Title style={styles.titleHeading}>Parent address</Title>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Address</Text>
+          <Text style={styles.fontStyle}>Address:</Text>
           <Text>{'  '}</Text>
-          <Text>Runkata </Text>
+          <Text style={styles.contentStyle}>Runkata </Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Landmark's</Text>
+          <Text style={styles.fontStyle}>Landmark's:</Text>
           <Text>{'  '}</Text>
-          <Text>NH 2</Text>
+          <Text style={styles.contentStyle}>NH 2</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>City</Text>
+          <Text style={styles.fontStyle}>City:</Text>
           <Text>{'  '}</Text>
-          <Text>Agra</Text>
+          <Text style={styles.contentStyle}>Agra</Text>
         </View>
         <View style={styles.containerView}>
-          <Text style={styles.fontStyle}>Country / Region</Text>
+          <Text style={styles.fontStyle}>Country / Region:</Text>
           <Text>{'  '}</Text>
-          <Text>Uttar Prddesh India </Text>
+          <Text style={styles.contentStyle}>Uttar Prddesh India </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -184,8 +173,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   fontStyle: {
-    color: 'black',
+    color: '#71706E',
     fontWeight: 'bold',
     flexShrink: 1,
+    fontSize: 16,
+  },
+  contentStyle: {
+    color: 'black',
   },
 });

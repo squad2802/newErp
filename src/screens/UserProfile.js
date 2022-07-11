@@ -1,3 +1,4 @@
+// ======================================================== user Profile =====================================================
 import {
   StyleSheet,
   Text,
@@ -9,10 +10,10 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Avatar, Button} from 'react-native-paper';
+import {Avatar} from 'react-native-paper';
 import {firebase} from '@react-native-firebase/auth';
 import UserInformationNav from '../navigate/UserInformationNav';
-// import UserInformationNav from '../navigate/UserInformationNav';
+
 export default function UserProfile({navigation}) {
   const [user, setUser] = useState([]);
 
@@ -26,7 +27,6 @@ export default function UserProfile({navigation}) {
           setUser(item);
         });
       }
-      // console.log('proper testing ===', user);
     });
   };
   useEffect(() => {
@@ -35,7 +35,6 @@ export default function UserProfile({navigation}) {
 
   // edit user
   const editUser = () => {
-    // Alert.alert(user.uid);
     navigation.navigate('Info');
   };
 

@@ -1,3 +1,4 @@
+// ======================================================== user login with phone =====================================================
 import {
   View,
   SafeAreaView,
@@ -16,11 +17,10 @@ import {
 import PhoneInput from 'react-native-phone-number-input';
 import {Button, Title} from 'react-native-paper';
 import React, {useState, useRef, useEffect} from 'react';
-// import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import auth from '@react-native-firebase/auth';
 import 'react-native-gesture-handler';
 
-export default function PhoneLogin({navigation}) {
+export default function UserPhoneLogin({navigation}) {
   const phoneRef = useRef();
   const [confirm, setConfirm] = useState(null);
   const [phone, setPhone] = useState('');
@@ -31,17 +31,18 @@ export default function PhoneLogin({navigation}) {
     otpArray,
     setOtpArray,
   });
-  const [user, setUser] = useState(null);
+  const [, setUser] = useState(null);
   // phone validation
   useEffect(() => {
     if (phone != '') {
       if (phone.length < 13) {
-        setPhoneError('number must be 10 character');
+        setPhoneError('number must be 10 digits');
       } else {
         setPhoneError('');
       }
     }
   }, [phone]);
+
   // handle phone authentication
   const handleGetOtpButton = async () => {
     const confirmation = await auth().signInWithPhoneNumber(phone);
@@ -53,10 +54,6 @@ export default function PhoneLogin({navigation}) {
   }, []);
 
   function onAuthStateChanged(user) {
-    // setUser(user);
-    // if (initializing) {
-    //   setInitializing(false);
-    // }
     console.log(user, 'user');
   }
 
@@ -106,6 +103,7 @@ export default function PhoneLogin({navigation}) {
               )}
               <Button
                 mode="contained"
+                disabled={!phone}
                 style={styles.containerButton}
                 onPress={handleGetOtpButton}>
                 Get Otp!
@@ -119,6 +117,7 @@ export default function PhoneLogin({navigation}) {
       </SafeAreaView>
     );
   }
+
   // Enter user 6 digit code
   return (
     <SafeAreaView style={styles.containerOtp}>
@@ -148,13 +147,14 @@ export default function PhoneLogin({navigation}) {
         />
         <Button
           mode="contained"
+          disabled={!otpArray}
           style={styles.containerButton}
           onPress={handleSetOtpButton}>
           Verify Otp!
         </Button>
         <View style={{flexDirection: 'row'}}>
-          <Text style={{marginLeft: 15}}>change Number</Text>
-          <Text style={{marginLeft: 130}}>Resend Otp</Text>
+          <Text style={{marginLeft: 15, color: 'silver'}}>change Number</Text>
+          <Text style={{marginLeft: 130, color: 'silver'}}>Resend Otp</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   containerTitle: {
     alignSelf: 'center',
     marginTop: '83%',
-    color: 'blue',
+    color: 'orange',
     position: 'relative',
   },
   phoneView: {
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     height: 50,
     borderRadius: 15,
+    backgroundColor: 'orange',
   },
   containerOtpTitle: {
     alignSelf: 'center',
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
     lineHeight: 38,
     fontSize: 24,
     borderWidth: 2,
-    borderColor: 'blue',
+    borderColor: 'orange',
     textAlign: 'center',
     color: 'black',
   },

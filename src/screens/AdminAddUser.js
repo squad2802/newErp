@@ -1,3 +1,4 @@
+// ============================================= Admin Add User =========================================
 import {
   StyleSheet,
   Text,
@@ -9,62 +10,72 @@ import {
 import React, {useState, createRef, useEffect} from 'react';
 import {Button, TextInput, Title} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
+import moment from 'moment';
+import auth from '@react-native-firebase/auth';
 
 export default function AddUserFrom({navigation}) {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [phone, setPhone] = useState('+91');
-  const userEmailRef = createRef();
-  const phoneRef = createRef();
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const userEmailRef = createRef();
+  const phoneRef = createRef();
 
-  //  handle add user Button
+  //  handle add user Button form admin
   const handleAddUser = async () => {
-    if (userName && userEmail && phone) {
-      await firestore()
-        .collection('userList')
-        .add({
-          name: userName,
-          email: userEmail,
-          phone: phone,
-        })
-        .then(() => {
-          Alert.alert(
-            'Success',
-            'You are Registered Successfully',
-            [
-              {
-                text: 'Ok',
-                onPress: () => navigation.navigate('TPass'),
-              },
-            ],
-            {cancelable: false},
-          );
-        })
-        .catch(error => {
-          Alert.alert(
-            'Exception',
-            error,
-            [
-              {
-                text: 'Ok',
-                onPress: () => navigation.navigate('UserList'),
-              },
-            ],
-            {cancelable: false},
-          );
-        });
-    } else {
-      Alert.alert('Please fill all the details');
-    }
+    const data = await auth().createUserWithEmailAndPassword(userEmail, phone);
+    const uid = data.user.uid;
+    await firestore()
+      .collection('userList')
+      .doc(uid)
+      .set({
+        name: userName,
+        email: userEmail,
+        onlineState: false,
+        role: 'user',
+        phone: phone,
+        isVerified: false,
+        isDeleted: false,
+        created_at: moment.now(),
+        updated_at: moment.now(),
+        deleted_at: null,
+        invite_sent: false,
+      })
+      .then(() => {
+        Alert.alert(
+          'Success',
+          'Add User Successfully',
+          [
+            {
+              text: 'Ok',
+              onPress: () => navigation.navigate('UserList'),
+            },
+          ],
+          {cancelable: false},
+        );
+      })
+      .catch(error => {
+        Alert.alert(
+          'Exception',
+          error,
+          [
+            {
+              text: 'Ok',
+              onPress: () => navigation.navigate('UserList'),
+            },
+          ],
+          {cancelable: false},
+        );
+      });
   };
 
   //  check validations
   useEffect(() => {
     const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
     // console.log('----->2', adminEmail);
+
     if (userName != '') {
       if (userName.length < 4) {
         setNameError('minimum 4 character name allowed');
@@ -76,7 +87,7 @@ export default function AddUserFrom({navigation}) {
 
     if (userEmail != '') {
       if (!regEx.test(userEmail)) {
-        setEmailError('Provide a valid email');
+        setEmailError('Enter a valid email');
       } else {
         setEmailError('');
       }
@@ -92,15 +103,17 @@ export default function AddUserFrom({navigation}) {
       return;
     }
   }, [userName, userEmail, phone]);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
-        <Title style={styles.title}>Add User</Title>
-
+        <Title style={styles.title}>ADD USER</Title>
+        {/* {inputError != '' && <Text style={{color: 'red'}}>{nameError}</Text>} */}
         {/* user name */}
         <TextInput
           mode="outlined"
-          placeholder="User Name"
+          label="User Name"
+          style={styles.textInput}
           onSubmitEditing={() =>
             userEmailRef.current && userEmailRef.current.focus()
           }
@@ -114,10 +127,11 @@ export default function AddUserFrom({navigation}) {
         {/* user email */}
         <TextInput
           mode="outlined"
-          placeholder="User Email"
+          label="User Email"
           ref={userEmailRef}
           onSubmitEditing={() => phoneRef.current && phoneRef.current.focus()}
           blurOnSubmit={false}
+          style={styles.textInput}
           returnKeyType="next"
           value={userEmail}
           onChangeText={text => setUserEmail(text)}
@@ -127,10 +141,11 @@ export default function AddUserFrom({navigation}) {
         {/* user phone */}
         <TextInput
           mode="outlined"
-          placeholder="User Phone"
+          label="User Phone"
           ref={phoneRef}
           onSubmitEditing={Keyboard.dismiss}
           blurOnSubmit={false}
+          style={styles.textInput}
           returnKeyType="done"
           value={phone}
           onChangeText={text => setPhone(text)}
@@ -139,6 +154,7 @@ export default function AddUserFrom({navigation}) {
 
         <Button
           mode="contained"
+          disabled={!userName || !userEmail || !phone}
           style={styles.button}
           onPress={() => handleAddUser()}>
           add user
@@ -161,7 +177,8 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '900',
     alignSelf: 'center',
-    color: 'black',
+    color: 'silver',
+    marginBottom: 15,
   },
   button: {
     height: 50,
@@ -170,5 +187,18 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     borderRadius: 15,
+    backgroundColor: 'orange',
+  },
+  verifyColor: {
+    color: 'green',
+    fontWeight: 'bold',
+  },
+  touchable: {
+    position: 'absolute',
+    paddingTop: 80,
+    paddingLeft: 280,
+  },
+  textInput: {
+    marginTop: 7,
   },
 });

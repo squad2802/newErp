@@ -1,3 +1,4 @@
+// ======================================================== User Profile =============================================
 import {
   StyleSheet,
   Text,
@@ -11,7 +12,7 @@ import React from 'react';
 import {Avatar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ProfileView({route, navigation}) {
+export default function ProfileView({route}) {
   // user send Email
   const userSendEmail = () => {
     Alert.alert('send email');
@@ -43,7 +44,12 @@ export default function ProfileView({route, navigation}) {
 
           <View style={styles.viewIcons}>
             <TouchableOpacity onPress={() => userSendEmail()}>
-              <Icon name="email" size={30} color="white" />
+              <Icon
+                name="email"
+                size={30}
+                color="white"
+                style={{marginLeft: 3}}
+              />
               <Text style={{color: 'white'}}>email</Text>
             </TouchableOpacity>
 
@@ -62,7 +68,12 @@ export default function ProfileView({route, navigation}) {
             <TouchableOpacity
               style={styles.touchStyle}
               onPress={() => userMeetings()}>
-              <Icon name="groups" size={30} color="white" />
+              <Icon
+                name="groups"
+                size={30}
+                color="white"
+                style={{marginLeft: 12}}
+              />
               <Text style={{color: 'white'}}>meeting</Text>
             </TouchableOpacity>
           </View>

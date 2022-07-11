@@ -1,3 +1,4 @@
+// ======================================================== user login with email =====================================================
 import {
   SafeAreaView,
   View,
@@ -13,7 +14,7 @@ import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import auth from '@react-native-firebase/auth';
 import 'react-native-gesture-handler';
 
-export default function EmailLogin({navigation}) {
+export default function UserEmailLogin({navigation}) {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -44,30 +45,6 @@ export default function EmailLogin({navigation}) {
 
   // handle user login button
   const handleLoginButton = async () => {
-    // try {
-    //   await auth()
-    //     .signInWithEmailAndPassword(userEmail, userPassword)
-    //     .then(userList => {
-    //       console.log(userList);
-    //       if (userList) {
-    //         console.log('successfully login ');
-    //         navigation.navigate('Home');
-    //       }
-    //     });
-    // } catch (e) {
-    //   // console.log(e);
-    //   if (e.code === 'auth/invalid-email') {
-    //     setPasswordError('email is not valid');
-    //     // console.log('email is not valid');
-    //   } else if (e.code === 'auth/user not found') {
-    //     setPasswordError('user not found');
-    //     // console.log('user not find');
-    //   } else {
-    //     setPasswordError('wrong password');
-    //     // console.log('wrong password');
-    //   }
-    // }
-
     await auth()
       .signInWithEmailAndPassword(userEmail, userPassword)
       .then(userList => {
@@ -78,16 +55,12 @@ export default function EmailLogin({navigation}) {
         }
       })
       .catch(error => {
-        // console.log(error);
         if (error.code === 'auth/invalid-email') {
           setPasswordError('email is not valid');
-          // console.log(error);
         } else if (error.code === 'auth/user-not-found') {
           setPasswordError('user not found');
-          // console.log('NO user Found');
         } else {
           setPasswordError('wrong password');
-          // console.log('check your email id or paassword');
         }
       });
   };
@@ -134,6 +107,7 @@ export default function EmailLogin({navigation}) {
 
           <Button
             mode="contained"
+            disabled={!userEmail || !userPassword}
             style={styles.containerButton}
             onPress={handleLoginButton}>
             Login With Email
@@ -161,7 +135,7 @@ const styles = StyleSheet.create({
   },
   containerTitle: {
     alignSelf: 'center',
-    color: 'blue',
+    color: 'orange',
     marginTop: '67%',
     position: 'relative',
   },
@@ -174,5 +148,6 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     marginTop: 15,
     borderRadius: 15,
+    backgroundColor: 'orange',
   },
 });

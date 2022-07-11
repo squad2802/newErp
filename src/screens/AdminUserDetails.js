@@ -1,3 +1,4 @@
+// ====================================================== Admin User Details ===================================================
 import {
   StyleSheet,
   Text,
@@ -6,13 +7,15 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Platform,
+  Linking,
 } from 'react-native';
 import React from 'react';
 import {Avatar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import 'react-native-gesture-handler';
 
-export default function TimePass({route, navigation, props}) {
+export default function TimePass({route, navigation}) {
   // email Invitation
   const emailInvite = async () => {
     // if (!route.params.email == 0) {
@@ -29,6 +32,7 @@ export default function TimePass({route, navigation, props}) {
     //   .sendSignInLinkToEmail(route.params.email, actionCodeSettings)
     //   .then(Alert.alert('email sent', 'inform the user'));
     // Alert.alert('send invitation');
+    route.params.name;
   };
 
   // edit user
@@ -36,12 +40,25 @@ export default function TimePass({route, navigation, props}) {
     if (!route.params.name || route.params.email || route.params.phone) {
       // alert(route.params.name);
       navigation.navigate('AHome', {
-        itemId: 86,
-        otherParams: 'anything you want here',
+        itemId: route.params.id,
+        itemName: route.params.name,
+        itemEmail: route.params.email,
+        itemPhone: route.params.phone,
       });
     } else {
-      Alert.alert('doesnot exist');
+      Alert.alert('does not exist');
     }
+  };
+
+  // openDialScreen
+  const openDialScreen = () => {
+    let number = '';
+    if (Platform.OS === 'ios') {
+      number = 'telprompt:${(route.params.phone)}';
+    } else {
+      number = 'tel:${(route.params.phone)}';
+    }
+    Linking.openURL(number);
   };
 
   return (
@@ -62,18 +79,32 @@ export default function TimePass({route, navigation, props}) {
               <Icon name="edit" size={30} color="white" />
               <Text style={{color: 'white'}}>Edit</Text>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.touchStyle}>
-              <Icon name="camera" size={30} color="white" />
+              <Icon
+                name="camera"
+                size={30}
+                color="white"
+                style={{marginLeft: 12}}
+              />
               <Text style={{color: 'white'}}>Camera</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert(route.params.phone)}>
+
+            <TouchableOpacity onPress={() => openDialScreen()}>
+              {/* alert(route.params.phone) */}
               <Icon name="phone" size={30} color="white" />
               <Text style={{color: 'white'}}>Call</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={styles.touchStyle}
               onPress={() => emailInvite()}>
-              <Icon name="send" size={30} color="white" />
+              <Icon
+                name="send"
+                size={30}
+                color="white"
+                style={{marginLeft: 2}}
+              />
               <Text style={{color: 'white'}}>Send</Text>
             </TouchableOpacity>
           </View>

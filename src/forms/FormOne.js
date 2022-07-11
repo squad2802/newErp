@@ -1,9 +1,9 @@
 import {StyleSheet, ScrollView, View, SafeAreaView, Alert} from 'react-native';
-import React, {useState, createRef, useEffect} from 'react';
+import React, {useState, createRef} from 'react';
 import {Title, TextInput, Button} from 'react-native-paper';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
-import {Firestore} from '@firebase/firestore';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import firestore from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/auth';
 
 export default function FormOne({navigation}) {
   const [firstName, setFirstName] = useState('');
@@ -18,8 +18,6 @@ export default function FormOne({navigation}) {
   const [currentCity, setCurrentCity] = useState('');
   const [currentRegion, setCurrentRegion] = useState('');
 
-  let [userId, setUserId] = useState('');
-
   const lastNameRef = createRef();
   const dobRef = createRef();
   const profileHeadlineRef = createRef();
@@ -30,24 +28,56 @@ export default function FormOne({navigation}) {
   const currentLandmarkRef = createRef();
   const currentCityRef = createRef();
   const currentRegionRef = createRef();
-  // fetch user information
-  useEffect(() => {}, []);
-  // update user information from firebase
-  const handleUpdate = () => {
-    // Firestore().collection('updateProfile').doc(userId).update({
-    //   first_name: firstName,
-    //   last_name: lastName,
-    //   date_of_birth: dob,
-    //   profileHeadline: profileHeadline,
-    //   current_Position: currentPosition,
-    //   industry: industry,
-    //   education: education,
-    //   current_Address: currentAddress,
-    //   current_Landmark: currentLandmark,
-    //   current_City: currentCity,
-    //   current_Region: currentRegion,
-    // });
+
+  // save user information
+  const handleSave = async () => {
+    const data = await firebase.auth().currentUser;
+    // console.log('GET USER UID=====.', user.uid);
+    const uid = data.user.uid;
+    await firestore()
+      .collection('userProfile')
+      .doc(uid)
+      .set({
+        Dob: dob,
+        Position: currentPosition,
+        PostGraduation: education,
+        CurrentAddress: currentAddress,
+        CurrentCity: currentCity,
+        CurrentCountry: currentRegion,
+      })
+      .then(() => {
+        Alert.alert(
+          'Success',
+          'Add User Successfully',
+          [
+            {
+              text: 'Ok',
+              // onPress: () => navigation.navigate('UserList'),
+            },
+          ],
+          {cancelable: false},
+        );
+      })
+      .catch(error => {
+        Alert.alert(
+          'Exception',
+          error,
+          [
+            {
+              text: 'Ok',
+              // onPress: () => navigation.navigate('UserList'),
+            },
+          ],
+          {cancelable: false},
+        );
+      });
   };
+
+  // saveData
+  // const handleSave = () => {
+  //   firestore.collection('userProfile').add({});
+  // };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -207,7 +237,7 @@ export default function FormOne({navigation}) {
         <Button
           mode="contained"
           style={styles.updateButton}
-          onPress={() => handleUpdate()}>
+          onPress={() => handleSave()}>
           Update
         </Button>
       </ScrollView>
