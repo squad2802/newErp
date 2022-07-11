@@ -30,7 +30,7 @@ export default function ProfileView({route}) {
 
   // user Meeting
   const userMeetings = () => {
-    Alert.alert('meeting');
+    Alert.alert('meeting ');
   };
 
   return (
