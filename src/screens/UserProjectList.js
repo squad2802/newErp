@@ -41,7 +41,7 @@ export default function UserProject({navigation}) {
                 <Avatar.Text
                   size={40}
                   label={item.email.substring(0, 2).toUpperCase()}
-                  backgroundColor="black"
+                  backgroundColor="#000000"
                   fontWeight="bold"
                 />
                 <View style={{flexDirection: 'column'}}>
@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
-    color: 'black',
+    color: '#000000',
     fontWeight: 'bold',
     paddingLeft: 5,
     fontSize: 16,

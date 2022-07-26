@@ -125,7 +125,7 @@ export default function UserPhoneLogin({navigation}) {
         <Title style={styles.containerOtpTitle}>
           Verify the Authorization code
         </Title>
-        <Title style={{color: 'black', alignSelf: 'center'}}>phone</Title>
+        <Title style={{color: '#000000', alignSelf: 'center'}}>phone</Title>
         <CodeField
           ref={ref}
           caretHidden={false}
@@ -153,8 +153,8 @@ export default function UserPhoneLogin({navigation}) {
           Verify Otp!
         </Button>
         <View style={{flexDirection: 'row'}}>
-          <Text style={{marginLeft: 15, color: 'silver'}}>change Number</Text>
-          <Text style={{marginLeft: 130, color: 'silver'}}>Resend Otp</Text>
+          <Text style={{marginLeft: 15, color: '#A9A9A9'}}>change Number</Text>
+          <Text style={{marginLeft: 130, color: '#A9A9A9'}}>Resend Otp</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -163,7 +163,7 @@ export default function UserPhoneLogin({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
   },
   containerView: {
     alignItems: 'center',
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   containerTitle: {
     alignSelf: 'center',
     marginTop: '83%',
-    color: 'orange',
+    color: '#FFA500',
     position: 'relative',
   },
   phoneView: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     height: 50,
     borderRadius: 15,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
   containerOtpTitle: {
     alignSelf: 'center',
@@ -206,12 +206,12 @@ const styles = StyleSheet.create({
     lineHeight: 38,
     fontSize: 24,
     borderWidth: 2,
-    borderColor: 'orange',
+    borderColor: '#FFA500',
     textAlign: 'center',
-    color: 'black',
+    color: '#000000',
   },
   focusCell: {
-    borderColor: 'white',
-    color: 'black',
+    borderColor: '#FFFFFF',
+    color: '#000000',
   },
 });

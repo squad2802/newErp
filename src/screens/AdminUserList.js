@@ -85,7 +85,7 @@ export default function Todolist({navigation}) {
                   <TouchableOpacity
                     style={styles.deleteIcon}
                     onPress={() => deleteUserById(item.id)}>
-                    <Icon name="delete" size={40} color="white" />
+                    <Icon name="delete" size={40} color="#FFFFFF" />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -100,7 +100,7 @@ export default function Todolist({navigation}) {
       <Icon
         name="add"
         size={40}
-        color="white"
+        color="#FFFFFF"
         style={styles.fabButton}
         onPress={() => navigation.navigate('AddUser')}
       />
@@ -117,12 +117,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'silver',
+    backgroundColor: '#A9A9A9',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
-    color: 'black',
+    color: '#000000',
     fontWeight: 'bold',
     paddingLeft: 20,
     fontSize: 20,

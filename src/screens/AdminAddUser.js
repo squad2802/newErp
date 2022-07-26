@@ -105,7 +105,7 @@ export default function AddUserFrom({navigation}) {
   }, [userName, userEmail, phone]);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <View style={styles.container}>
         <Title style={styles.title}>ADD USER</Title>
         {/* {inputError != '' && <Text style={{color: 'red'}}>{nameError}</Text>} */}
@@ -170,14 +170,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginVertical: 80,
-    borderColor: 'black',
-    backgroundColor: 'white',
+    borderColor: '#000000',
+    backgroundColor: '#FFFFFF',
     borderRadius: 10,
   },
   title: {
     fontWeight: '900',
     alignSelf: 'center',
-    color: 'silver',
+    color: '#C0C0C0',
     marginBottom: 15,
   },
   button: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     borderRadius: 15,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
   verifyColor: {
     color: 'green',

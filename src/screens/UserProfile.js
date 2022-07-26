@@ -12,7 +12,7 @@ import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Avatar} from 'react-native-paper';
 import {firebase} from '@react-native-firebase/auth';
-import UserInformationNav from '../navigate/UserInformationNav';
+import UserProfileData from './UserProfileData';
 
 export default function UserProfile({navigation}) {
   const [user, setUser] = useState([]);
@@ -56,50 +56,48 @@ export default function UserProfile({navigation}) {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.imageView}>
-        <Icon
-          name="notifications"
-          size={30}
-          color="#B5952F"
-          style={{marginLeft: '90%'}}
-        />
         <Avatar.Image size={100} source={require('../assets/mainLogo.jpeg')} />
-        <Text style={styles.userText}>{user.email}</Text>
-        <Text style={styles.phoneText}>SM0041</Text>
+        <Text style={styles.userText}>SM1015</Text>
+        <Text style={styles.phoneText}>{user.name}</Text>
         <Text style={styles.phoneEmail}>{user.email}</Text>
         <View style={styles.viewIcons}>
           <TouchableOpacity onPress={() => editUser()}>
-            <Icon name="edit" size={30} color="white" />
-            <Text style={{color: 'white'}}>Edit</Text>
+            <Icon name="edit" size={30} color="#FFFFFF" />
+            <Text style={{color: '#FFFFFF'}}>Edit</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.touchStyle}
             onPress={() => userMessage()}>
-            <Icon name="message" size={30} color="white" />
-            <Text style={{color: 'white'}}>message</Text>
+            <Icon
+              name="message"
+              size={30}
+              color="#FFFFFF"
+              style={{marginLeft: 15}}
+            />
+            <Text style={{color: '#FFFFFF'}}>message</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => usercall()}>
-            <Icon name="phone" size={30} color="white" />
-            <Text style={{color: 'white'}}>Call</Text>
+            <Icon
+              name="notifications"
+              size={30}
+              color="#FFFFFF"
+              style={{paddingLeft: 22}}
+            />
+            <Text style={{color: '#FFFFFF'}}>Notification</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.touchStyle}
             onPress={() => userEmail()}>
-            <Icon name="email" size={30} color="white" />
-            <Text style={{color: 'white'}}>Send</Text>
+            <Icon name="email" size={30} color="#FFFFFF" />
+            <Text style={{color: '#FFFFFF'}}>Send</Text>
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Button
-          mode="contained"
-          onPress={() => navigation.navigate('Information')}>
-          {' '}
-          user Information
-        </Button> */}
       <ScrollView showsHorizontalScrollIndicator={false}>
-        <UserInformationNav />
+        <UserProfileData />
       </ScrollView>
     </SafeAreaView>
   );
@@ -109,25 +107,26 @@ const styles = StyleSheet.create({
   imageView: {
     height: 300,
     width: '100%',
-    backgroundColor: 'black',
+    backgroundColor: '#FFA500',
     alignItems: 'center',
+    paddingTop: 30,
   },
   userText: {
     fontWeight: 'bold',
     fontSize: 20,
     marginTop: 10,
-    color: 'white',
+    color: '#FFFFFF',
   },
   phoneText: {
     fontWeight: '600',
     fontSize: 15,
     marginTop: 10,
-    color: 'white',
+    color: '#FFFFFF',
   },
   phoneEmail: {
     fontWeight: '600',
     fontSize: 15,
-    color: 'white',
+    color: '#FFFFFF',
   },
   viewIcons: {
     flexDirection: 'row',

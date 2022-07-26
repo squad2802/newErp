@@ -94,7 +94,7 @@ export default function AdminHome({route, navigation}) {
       return;
     }
     if (phone != '') {
-      if (phone.length < 13) {
+      if (phone.length < 10) {
         setPhoneError('number must be 10 digits');
       } else {
         setPhoneError('');
@@ -168,14 +168,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginVertical: 80,
-    borderColor: 'black',
-    backgroundColor: 'white',
+    borderColor: '#000000',
+    backgroundColor: '#FFFFFF',
     borderRadius: 10,
   },
   title: {
     fontWeight: '900',
     alignSelf: 'center',
-    color: 'sliver',
+    color: '#808080',
     marginBottom: 15,
   },
   button: {
@@ -185,10 +185,10 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     borderRadius: 15,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
   textInput: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     marginTop: 7,
   },
 });

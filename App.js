@@ -7,17 +7,18 @@ import auth from '@react-native-firebase/auth';
 
 import WelcomePage from './src/screens/WelcomePage';
 import AuthenticationRoute from './src/navigate/AuthenticationRoute';
-import UserHomeNavigation from './src/navigate/UserHomeNavigation';
+import UserMenuNavigation from './src/navigate/UserMenuNavigation';
 import AdminLogin from './src/screens/AdminLogin';
 import AdminUpdateUser from './src/screens/AdminUpdateUser';
 import UserHomeScreen from './src/screens/UserHomeScreen';
-import Todolist from './src/screens/Todolist';
-import AdminUserDetails from './src/screens/AdminUserDetails';
+import AdminUserList from './src/screens/AdminUserList';
+import AdminUserProfileDetails from './src/screens/AdminUserProfileDetails';
 import UserProjectDetails from './src/screens/UserProjectDetails';
 import UserDetails from './src/screens/UserDetails';
 import AdminAddUser from './src/screens/AdminAddUser';
-import UserInformationNav from './src/navigate/UserInformationNav';
-import ConnectForm from './src/navigate/ConnectForm';
+import UserProfileData from './src/screens/UserProfileData';
+import UserFormNavigation from './src/navigate/UserFormNavigation';
+import AdminSendInvitationWithEmail from './src/screens/AdminSendInvitationWithEmail';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,17 +29,17 @@ export default function App() {
         <Stack.Screen
           name="Welcome"
           component={WelcomePage}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Login"
           component={AuthenticationRoute}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Home"
-          component={UserHomeNavigation}
-          options={{headerShown: true}}
+          component={UserMenuNavigation}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Dashboard"
@@ -57,7 +58,7 @@ export default function App() {
         />
         <Stack.Screen
           name="UserList"
-          component={Todolist}
+          component={AdminUserList}
           options={({navigation}) => ({
             title: 'User list',
             headerShown: true,
@@ -97,14 +98,14 @@ export default function App() {
                     {cancelable: false},
                   );
                 }}>
-                <Icon name="logout" size={40} color="orange" />
+                <Icon name="logout" size={40} color="#FFA500" />
               </TouchableOpacity>
             ),
           })}
         />
         <Stack.Screen
           name="TPass"
-          component={AdminUserDetails}
+          component={AdminUserProfileDetails}
           options={{headerShown: true, title: 'User Details'}}
         />
         <Stack.Screen
@@ -124,13 +125,18 @@ export default function App() {
         />
         <Stack.Screen
           name="Information"
-          component={UserInformationNav}
+          component={UserProfileData}
           options={{headerShown: true}}
         />
         <Stack.Screen
           name="Info"
-          component={ConnectForm}
-          options={{headerShown: true}}
+          component={UserFormNavigation}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="emailInvitations"
+          component={AdminSendInvitationWithEmail}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

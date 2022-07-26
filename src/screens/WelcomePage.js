@@ -10,7 +10,7 @@ export default function WelcomePage({navigation}) {
     setTimeout(() => {
       setAnimating(false);
       navigation.replace(auth().currentUser ? 'Home' : 'Login');
-    }, 5000);
+    }, 3000);
   }, [navigation]);
   return (
     <View style={styles.container}>
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
   },
 });

@@ -1,4 +1,4 @@
-// ====================================================== Admin User Details ===================================================
+// ====================================================== Admin User Profile Details ===================================================
 import {
   StyleSheet,
   Text,
@@ -17,23 +17,20 @@ import 'react-native-gesture-handler';
 
 export default function TimePass({route, navigation}) {
   // email Invitation
-  const emailInvite = async () => {
-    // if (!route.params.email == 0) {
-    //   var actionCodeSettings = {
-    //     url: 'https://squadmindserplogins.page.link/Rdse',
-    //     handleCodeInApp: true,
-    //     android: {
-    //       packageName: 'com.example.android',
-    //       installApp: true,
-    //     },
-    //   };
-    // }
-    // return auth()
-    //   .sendSignInLinkToEmail(route.params.email, actionCodeSettings)
-    //   .then(Alert.alert('email sent', 'inform the user'));
-    // Alert.alert('send invitation');
-    route.params.name;
-  };
+  // if (!route.params.email == 0) {
+  //   var actionCodeSettings = {
+  //     url: 'https://squadmindserplogins.page.link/Rdse',
+  //     handleCodeInApp: true,
+  //     android: {
+  //       packageName: 'com.example.android',
+  //       installApp: true,
+  //     },
+  //   };
+  // }
+  // return auth()
+  //   .sendSignInLinkToEmail(route.params.email, actionCodeSettings)
+  //   .then(Alert.alert('email sent', 'inform the user'));
+  // Alert.alert('send invitation');
 
   // edit user
   const editUser = () => {
@@ -52,13 +49,13 @@ export default function TimePass({route, navigation}) {
 
   // openDialScreen
   const openDialScreen = () => {
-    let number = '';
-    if (Platform.OS === 'ios') {
-      number = 'telprompt:${(route.params.phone)}';
+    let phoneNumber = '';
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${route.params.phone}`;
     } else {
-      number = 'tel:${(route.params.phone)}';
+      phoneNumber = `telprompt:${route.params.phone}`;
     }
-    Linking.openURL(number);
+    Linking.openURL(phoneNumber);
   };
 
   return (
@@ -69,43 +66,43 @@ export default function TimePass({route, navigation}) {
             size={100}
             source={require('../assets/mainLogo.jpeg')}
           />
-          {/* <Text style={{color: 'white'}}>{route.params.id}</Text> */}
+          {/* <Text style={{color: '#FFFFFF'}}>{route.params.id}</Text> */}
           <Text style={styles.userText}>{route.params.name}</Text>
           <Text style={styles.phoneText}>{route.params.phone}</Text>
           <Text style={styles.phoneEmail}>{route.params.email}</Text>
 
           <View style={styles.viewIcons}>
             <TouchableOpacity onPress={() => editUser()}>
-              <Icon name="edit" size={30} color="white" />
-              <Text style={{color: 'white'}}>Edit</Text>
+              <Icon name="edit" size={30} color="#FFFFFF" />
+              <Text style={{color: '#FFFFFF'}}>Edit</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.touchStyle}>
               <Icon
                 name="camera"
                 size={30}
-                color="white"
+                color="#FFFFFF"
                 style={{marginLeft: 12}}
               />
-              <Text style={{color: 'white'}}>Camera</Text>
+              <Text style={{color: '#FFFFFF'}}>Camera</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => openDialScreen()}>
               {/* alert(route.params.phone) */}
-              <Icon name="phone" size={30} color="white" />
-              <Text style={{color: 'white'}}>Call</Text>
+              <Icon name="phone" size={30} color="#FFFFFF" />
+              <Text style={{color: '#FFFFFF'}}>Call</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.touchStyle}
-              onPress={() => emailInvite()}>
+              onPress={() => navigation.navigate('emailInvitations', route)}>
               <Icon
                 name="send"
                 size={30}
-                color="white"
+                color="#FFFFFF"
                 style={{marginLeft: 2}}
               />
-              <Text style={{color: 'white'}}>Send</Text>
+              <Text style={{color: '#FFFFFF'}}>Send</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -118,7 +115,7 @@ const styles = StyleSheet.create({
   imageView: {
     height: 300,
     width: '100%',
-    backgroundColor: 'black',
+    backgroundColor: '#FFA500',
     alignItems: 'center',
     padding: 15,
   },
@@ -126,18 +123,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginTop: 10,
-    color: 'white',
+    color: '#FFFFFF',
   },
   phoneText: {
     fontWeight: '600',
     fontSize: 15,
     marginTop: 10,
-    color: 'silver',
+    color: '#FFFFFF',
   },
   phoneEmail: {
     fontWeight: '600',
     fontSize: 15,
-    color: 'silver',
+    color: '#FFFFFF',
   },
   viewIcons: {
     flexDirection: 'row',

@@ -1,9 +1,9 @@
-import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
-import React, {useState, createRef, useEffect} from 'react';
+import {StyleSheet, SafeAreaView, ScrollView, View, Alert} from 'react-native';
+import React, {useState, createRef} from 'react';
 import {Title, TextInput, Button} from 'react-native-paper';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
-// import {Firestore} from '@firebase/firestore';
-import {firebase} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export default function FormTwo({navigation}) {
   const [phone, setPhone] = useState('');
@@ -15,7 +15,7 @@ export default function FormTwo({navigation}) {
   const [parentAddress, setParentAddress] = useState('');
   const [parentLandmark, setParentLandmark] = useState('');
   const [parentCity, setParentCity] = useState('');
-  const [parenRegion, setParentRegion] = useState('');
+  const [parentRegion, setParentRegion] = useState('');
 
   const userEmailRef = createRef();
   const slackRef = createRef();
@@ -28,10 +28,52 @@ export default function FormTwo({navigation}) {
   const regionRef = createRef();
 
   // update user information from firebase
-  const handleUpdate = async () => {};
-  // useEffect(() => {
-  //   firebase.auth().currentUser.updateProfile(handleUpdate);
-  // }, []);
+  const handleSaveButton = async () => {
+    await auth().onAuthStateChanged(user => {
+      const uid = user.uid;
+      firestore()
+        .collection('userProfileData')
+        .doc(uid)
+        .set({
+          Phone_Number: phone,
+          Email: userEmail,
+          Slack: slack,
+          Father_Name: fatherName,
+          Mother_Name: motherName,
+          Parent_Contact: contactNo,
+          Parent_Address: parentAddress,
+          Parent_Landmark: parentLandmark,
+          Parent_City: parentCity,
+          Parent_RegionCountry: parentRegion,
+        })
+        .then(() => {
+          Alert.alert(
+            'Success',
+            'Add User Successfully',
+            [
+              {
+                text: 'Ok',
+                onPress: () => navigation.navigate('UserHome'),
+              },
+            ],
+            {cancelable: false},
+          );
+        })
+        .catch(error => {
+          Alert.alert(
+            'Exception',
+            error,
+            [
+              {
+                text: 'Ok',
+                onPress: () => navigation.navigate('UserHome'),
+              },
+            ],
+            {cancelable: false},
+          );
+        });
+    });
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -161,7 +203,7 @@ export default function FormTwo({navigation}) {
             blurOnSubmit={false}
             returnKeyType="next"
             keyboardType="default"
-            value={parenRegion}
+            value={parentRegion}
             onChangeText={text => setParentRegion(text)}
           />
         </View>
@@ -182,7 +224,7 @@ export default function FormTwo({navigation}) {
         <Button
           mode="contained"
           style={styles.updateButton}
-          onPress={() => handleUpdate()}>
+          onPress={() => handleSaveButton()}>
           Update
         </Button>
       </ScrollView>
@@ -208,20 +250,20 @@ const styles = StyleSheet.create({
     height: 45,
     paddingTop: 4,
     width: 130,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
   nextButton: {
     marginLeft: 40,
     height: 45,
     paddingTop: 4,
     width: 130,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
   titleColor: {
-    color: 'orange',
+    color: '#FFA500',
   },
   updateButton: {
     marginBottom: 20,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
 });

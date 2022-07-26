@@ -43,7 +43,7 @@ export default function AllUsers({navigation}) {
                   size={50}
                   source={require('../assets/mainLogo.jpeg')}
                   // label={item.name.substring(0, 2).toUpperCase()}
-                  backgroundColor="white"
+                  backgroundColor="#FFFFFF"
                 />
                 <View style={{flexDirection: 'column'}}>
                   <Text style={styles.title}>{item.name}</Text>
@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
-    color: 'black',
+    color: '#000000',
     fontWeight: 'bold',
     paddingLeft: 20,
     fontSize: 20,

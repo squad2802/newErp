@@ -114,7 +114,7 @@ export default function AdminLogin({navigation}) {
             onPress={handleAdminLoginButton}>
             Login With Admin
           </Button>
-          <Text style={{color: 'orange', marginTop: 5}}>
+          <Text style={{color: '#FFA500', marginTop: 5}}>
             Please login here with Admin Add Delete and Update User
           </Text>
         </View>
@@ -125,7 +125,7 @@ export default function AdminLogin({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
   },
   containerView: {
     alignItems: 'center',
@@ -144,6 +144,6 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     marginTop: 15,
     borderRadius: 15,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
 });

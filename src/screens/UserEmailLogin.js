@@ -123,7 +123,7 @@ export default function UserEmailLogin({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
   },
   containerView: {
     alignItems: 'center',
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   containerTitle: {
     alignSelf: 'center',
-    color: 'orange',
+    color: '#FFA500',
     marginTop: '67%',
     position: 'relative',
   },
@@ -148,6 +148,6 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     marginTop: 15,
     borderRadius: 15,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
 });
