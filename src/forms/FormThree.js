@@ -1,7 +1,9 @@
-import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
+import {StyleSheet, SafeAreaView, ScrollView, View, Alert} from 'react-native';
 import React, {useState, createRef} from 'react';
 import {Title, Button, TextInput} from 'react-native-paper';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export default function FormThree({navigation}) {
   const [aadharNo, setAadharNo] = useState('');
@@ -16,8 +18,46 @@ export default function FormThree({navigation}) {
   const vehicleRef = createRef();
 
   // update user information from firebase
-  const handleUpdate = () => {
-    alert('hello update');
+  const handleSaveButton = async () => {
+    await auth().onAuthStateChanged(user => {
+      const uid = user.uid;
+      firestore()
+        .collection('userProfileData')
+        .doc(uid)
+        .set({
+          Aadhar_Number: aadharNo,
+          PAN_Number: panNo,
+          Passport_Number: passportNo,
+          Vehicle_Type: vehicleType,
+          Vehicle_Number: vehicleNo,
+        })
+        .then(() => {
+          Alert.alert(
+            'Success',
+            'Add User Successfully',
+            [
+              {
+                text: 'Ok',
+                onPress: () => navigation.navigate('UserHome'),
+              },
+            ],
+            {cancelable: false},
+          );
+        })
+        .catch(error => {
+          Alert.alert(
+            'Exception',
+            error,
+            [
+              {
+                text: 'Ok',
+                onPress: () => navigation.navigate('UserHome'),
+              },
+            ],
+            {cancelable: false},
+          );
+        });
+    });
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -85,26 +125,6 @@ export default function FormThree({navigation}) {
             value={vehicleNo}
             onChangeText={text => setVehicleNo(text)}
           />
-          {/* <TextInput
-            mode="outlined"
-            label="Outlined input"
-            onSubmitEditing={() => slackRef.current && slackRef.current.focus()}
-            ref={userEmailRef}
-            blurOnSubmit={false}
-            returnKeyType="next"
-            value={userEmail}
-            onChangeText={text => setUserEmail(text)}
-          />
-          <TextInput
-            mode="outlined"
-            label="Outlined input"
-            onSubmitEditing={() => slackRef.current && slackRef.current.focus()}
-            ref={userEmailRef}
-            blurOnSubmit={false}
-            returnKeyType="next"
-            value={userEmail}
-            onChangeText={text => setUserEmail(text)}
-          /> */}
         </View>
         <View style={styles.buttonView}>
           <Button
@@ -120,7 +140,7 @@ export default function FormThree({navigation}) {
         <Button
           mode="contained"
           style={styles.updateButton}
-          onPress={() => handleUpdate()}>
+          onPress={() => handleSaveButton()}>
           Update
         </Button>
       </ScrollView>
@@ -146,20 +166,20 @@ const styles = StyleSheet.create({
     height: 45,
     paddingTop: 4,
     width: 130,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
   nextButton: {
     marginLeft: 40,
     height: 45,
     paddingTop: 4,
     width: 130,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
   titleColor: {
-    color: 'orange',
+    color: '#FFA500',
   },
   updateButton: {
     marginBottom: 20,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
   },
 });

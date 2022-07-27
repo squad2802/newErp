@@ -1,3 +1,4 @@
+// ======================================================== User Profile =============================================
 import {
   StyleSheet,
   Text,
@@ -6,30 +7,38 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Platform,
+  Linking,
 } from 'react-native';
 import React from 'react';
 import {Avatar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ProfileView({route, navigation}) {
+export default function ProfileView({route}) {
   // user send Email
   const userSendEmail = () => {
-    Alert.alert('send email');
+    Alert.alert('user send email');
   };
 
   // user Cheating
   const userChatting = () => {
-    Alert.alert('chatting');
+    Alert.alert('user chatting');
   };
 
-  // user Styling
-  const userStyle = () => {
-    Alert.alert('style');
+  // user Dail Screen
+  const openDialScreen = () => {
+    let phoneNumber = '';
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${route.params.phone}`;
+    } else {
+      phoneNumber = `telprompt:${route.params.phone}`;
+    }
+    Linking.openURL(phoneNumber);
   };
 
   // user Meeting
   const userMeetings = () => {
-    Alert.alert('meeting');
+    Alert.alert('user in meeting');
   };
 
   return (
@@ -43,27 +52,37 @@ export default function ProfileView({route, navigation}) {
 
           <View style={styles.viewIcons}>
             <TouchableOpacity onPress={() => userSendEmail()}>
-              <Icon name="email" size={30} color="white" />
-              <Text style={{color: 'white'}}>email</Text>
+              <Icon
+                name="email"
+                size={30}
+                color="#FFFFFF"
+                style={{marginLeft: 3}}
+              />
+              <Text style={{color: '#FFFFFF'}}>email</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.touchStyle}
               onPress={() => userChatting()}>
-              <Icon name="forum" size={30} color="white" />
-              <Text style={{color: 'white'}}>chat</Text>
+              <Icon name="forum" size={30} color="#FFFFFF" />
+              <Text style={{color: '#FFFFFF'}}>Chat</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => userStyle()}>
-              <Icon name="style" size={30} color="white" />
-              <Text style={{color: 'white'}}>style</Text>
+            <TouchableOpacity onPress={() => openDialScreen()}>
+              <Icon name="phone" size={30} color="#FFFFFF" />
+              <Text style={{color: '#FFFFFF'}}>Call</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.touchStyle}
               onPress={() => userMeetings()}>
-              <Icon name="groups" size={30} color="white" />
-              <Text style={{color: 'white'}}>meeting</Text>
+              <Icon
+                name="groups"
+                size={30}
+                color="#FFFFFF"
+                style={{marginLeft: 12}}
+              />
+              <Text style={{color: '#FFFFFF'}}>meeting</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -76,7 +95,7 @@ const styles = StyleSheet.create({
   imageView: {
     height: 300,
     width: '100%',
-    backgroundColor: 'black',
+    backgroundColor: '#000000',
     alignItems: 'center',
     padding: 15,
   },
@@ -84,18 +103,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginTop: 10,
-    color: 'white',
+    color: '#FFFFFF',
   },
   phoneText: {
     fontWeight: '600',
     fontSize: 15,
     marginTop: 10,
-    color: 'silver',
+    color: '#A9A9A9',
   },
   phoneEmail: {
     fontWeight: '600',
     fontSize: 15,
-    color: 'silver',
+    color: '#A9A9A9',
   },
   viewIcons: {
     flexDirection: 'row',

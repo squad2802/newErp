@@ -1,3 +1,4 @@
+// ======================================================== User Project details =====================================================
 import {
   StyleSheet,
   Text,
@@ -11,7 +12,7 @@ import React from 'react';
 import {Avatar} from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ProjectDesc({route, navigation}) {
+export default function ProjectDesc({route}) {
   // Project Details
   const ProjectDetails = () => {
     Alert.alert('Project Details');
@@ -47,7 +48,7 @@ export default function ProjectDesc({route, navigation}) {
 
           <View style={styles.viewIcons}>
             <TouchableOpacity onPress={() => ProjectDetails()}>
-              {/* <Icon name="edit" size={30} color="white" /> */}
+              {/* <Icon name="edit" size={30} color="#FFFFFF" /> */}
               <Text style={{color: 'green', fontWeight: 'bold', fontSize: 18}}>
                 Details
               </Text>
@@ -56,14 +57,14 @@ export default function ProjectDesc({route, navigation}) {
             <TouchableOpacity
               style={styles.touchStyle}
               onPress={() => ProjectStatus()}>
-              {/* <Icon name="camera" size={30} color="white" /> */}
+              {/* <Icon name="camera" size={30} color="#FFFFFF" /> */}
               <Text style={{color: 'green', fontWeight: 'bold', fontSize: 18}}>
                 Status
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => ProjectClient()}>
-              {/* <Icon name="phone" size={30} color="white" /> */}
+              {/* <Icon name="phone" size={30} color="#FFFFFF" /> */}
               <Text style={{color: 'green', fontWeight: 'bold', fontSize: 18}}>
                 Client
               </Text>
@@ -72,7 +73,7 @@ export default function ProjectDesc({route, navigation}) {
             <TouchableOpacity
               style={styles.touchStyle}
               onPress={() => ProjectUrl()}>
-              {/* <Icon name="send" size={30} color="white" /> */}
+              {/* <Icon name="send" size={30} color="#FFFFFF" /> */}
               <Text style={{color: 'green', fontWeight: 'bold', fontSize: 18}}>
                 URL
               </Text>
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   imageView: {
     height: 250,
     width: '100%',
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
     alignItems: 'center',
     padding: 15,
   },
@@ -96,18 +97,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginTop: 10,
-    color: 'white',
+    color: '#FFFFFF',
   },
   phoneText: {
     fontWeight: '600',
     fontSize: 15,
     marginTop: 10,
-    color: 'silver',
+    color: '#A9A9A9',
   },
   phoneEmail: {
     fontWeight: '600',
     fontSize: 15,
-    color: 'silver',
+    color: '#A9A9A9',
   },
   viewIcons: {
     flexDirection: 'row',

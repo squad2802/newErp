@@ -1,3 +1,4 @@
+// ======================================================== user Project list =====================================================
 import {
   StyleSheet,
   Text,
@@ -24,7 +25,6 @@ export default function UserProject({navigation}) {
             id: doc.id,
           });
         });
-        // console.log('userProject ====>', users1);
         setUsers(users1);
       });
     return () => subscriber();
@@ -40,12 +40,12 @@ export default function UserProject({navigation}) {
               <View style={styles.listTitle} key={item.id}>
                 <Avatar.Text
                   size={40}
-                  label={item.id.substring(0, 2).toUpperCase()}
-                  backgroundColor="black"
+                  label={item.email.substring(0, 2).toUpperCase()}
+                  backgroundColor="#000000"
                   fontWeight="bold"
                 />
                 <View style={{flexDirection: 'column'}}>
-                  <Text style={styles.title}>{item.id}</Text>
+                  <Text style={styles.title}>{item.email}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -67,15 +67,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'orange',
+    backgroundColor: '#FFA500',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
-    color: 'black',
+    color: '#000000',
     fontWeight: 'bold',
     paddingLeft: 5,
-    fontSize: 12,
+    fontSize: 16,
   },
   containerIcons: {
     flexDirection: 'row',

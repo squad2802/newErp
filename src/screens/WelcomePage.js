@@ -1,3 +1,4 @@
+// ====================================================== Welcome screen ==============================================
 import {StyleSheet, Image, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, Colors} from 'react-native-paper';
@@ -8,10 +9,8 @@ export default function WelcomePage({navigation}) {
   useEffect(() => {
     setTimeout(() => {
       setAnimating(false);
-      // navigation.replace('Login'); // Login
-      // navigation.replace(auth().currentUser ? 'Login' : 'Home');
       navigation.replace(auth().currentUser ? 'Home' : 'Login');
-    }, 5000);
+    }, 3000);
   }, [navigation]);
   return (
     <View style={styles.container}>
@@ -31,6 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
   },
 });

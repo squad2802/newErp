@@ -1,18 +1,50 @@
+// ================================================= Admin user list ==========================================
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
   FlatList,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {Avatar} from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Avatar, FAB} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function AllUsers({navigation}) {
+export default function Todolist({navigation}) {
   const [users, setUsers] = useState([]);
+
+  const deleteUserById = async id => {
+    Alert.alert(
+      'Logout',
+      'Are you sure? You want to logout',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            return null;
+          },
+        },
+        {
+          text: 'Confirm',
+          onPress: () => {
+            firestore()
+              .collection('userList')
+              .doc(id)
+              .delete()
+              .then(() => {
+                console.log('user deleted');
+              });
+            const filterData = users.filter(item => item.id !== id);
+            setUsers(filterData);
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
 
   useEffect(() => {
     const subscriber = firestore()
@@ -26,7 +58,6 @@ export default function AllUsers({navigation}) {
           });
         });
         setUsers(users1);
-        // console.log('userProject ====>', users1);
       });
     return () => subscriber();
   }, []);
@@ -38,7 +69,7 @@ export default function AllUsers({navigation}) {
           data={users}
           renderItem={({item}) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('PView', item)}>
+              onPress={() => navigation.navigate('TPass', item)}>
               <View style={styles.listTitle}>
                 <Avatar.Image
                   size={50}
@@ -47,7 +78,15 @@ export default function AllUsers({navigation}) {
                   backgroundColor="white"
                 />
                 <View style={{flexDirection: 'column'}}>
-                  <Text style={styles.title}>{item.email}</Text>
+                  <Text style={styles.title}>{item.name}</Text>
+                </View>
+
+                <View style={styles.containerIcons}>
+                  <TouchableOpacity
+                    style={styles.deleteIcon}
+                    onPress={() => deleteUserById(item.id)}>
+                    <Icon name="delete" size={40} color="#FFFFFF" />
+                  </TouchableOpacity>
                 </View>
               </View>
             </TouchableOpacity>
@@ -56,6 +95,15 @@ export default function AllUsers({navigation}) {
           showsHorizontalScrollIndicator={false}
         />
       </View>
+
+      <FAB style={styles.addButton} />
+      <Icon
+        name="add"
+        size={40}
+        color="#FFFFFF"
+        style={styles.fabButton}
+        onPress={() => navigation.navigate('AddUser')}
+      />
     </SafeAreaView>
   );
 }
@@ -69,12 +117,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 15,
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#A9A9A9',
     borderRadius: 15,
     marginTop: 4,
   },
   title: {
-    color: 'black',
+    color: '#000000',
     fontWeight: 'bold',
     paddingLeft: 20,
     fontSize: 20,
@@ -87,5 +135,15 @@ const styles = StyleSheet.create({
   deleteIcon: {
     marginLeft: 10,
     marginRight: 10,
+  },
+  addButton: {
+    position: 'absolute',
+    marginTop: 695,
+    marginLeft: 320,
+  },
+  fabButton: {
+    position: 'absolute',
+    marginTop: 703,
+    marginLeft: 328,
   },
 });
