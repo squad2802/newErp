@@ -3,11 +3,22 @@ import {StyleSheet, SafeAreaView, Text, View, Alert} from 'react-native';
 import {Button, Title} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React, {useState, useEffect} from 'react';
-import firestore from '@react-native-firebase/firestore';
+import { firebase } from '@react-native-firebase/app';
 
-export default function AdminSendInvitationWithEmail() {
-  const sendInvitation = () => {
-      Alert.alert('user Id======>',);
+export default function AdminSendInvitationWithEmail({route}) {
+  // const {itemId} = route.params;
+  // const {itemName} = route.params;
+  // const {itemPhone} = route.params;
+  const {itemEmail} = route.params;
+
+  const sendInvitation = async () => {
+    // create invitation
+    //   const invitation = new firebase.invites.Invitation();
+    //   invitation.setDeepLink('https://squadmindserplogins.page.link/Rdse');
+    // // send the invitation
+    //   const invitationIds = await firebase.invites().sendInvitation(invitation);
+    // // use the invitationIds as you see fit
+    // console.log(invitationIds);
   };
   return (
     <SafeAreaView style={styles.container}>

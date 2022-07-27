@@ -95,7 +95,14 @@ export default function TimePass({route, navigation}) {
 
             <TouchableOpacity
               style={styles.touchStyle}
-              onPress={() => navigation.navigate('emailInvitations', route)}>
+              onPress={() =>
+                navigation.navigate('emailInvitations', {
+                  itemId: route.params.id,
+                  itemName: route.params.name,
+                  itemEmail: route.params.email,
+                  itemPhone: route.params.phone,
+                })
+              }>
               <Icon
                 name="send"
                 size={30}

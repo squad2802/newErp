@@ -31,7 +31,7 @@ export default function UpDateUserInformation({navigation}) {
   const [aadharNo, setAadharNo] = useState('');
   const [panNo, setPanNo] = useState('');
   const [passportNo, setPassportNo] = useState('');
-  const [drivLicense, setDrivLicense] = useState('');
+  const [drivingLicence, setDrivingLicence] = useState('');
   const [vehicleType, setVehicleType] = useState('');
   const [vehicleNo, setVehicleNo] = useState('');
 
@@ -96,6 +96,7 @@ export default function UpDateUserInformation({navigation}) {
           Aadhar_Number: aadharNo,
           PAN_Number: panNo,
           Passport_Number: passportNo,
+          Driving_Licence: drivingLicence,
           Vehicle_Type: vehicleType,
           Vehicle_Number: vehicleNo,
         })
@@ -164,6 +165,7 @@ export default function UpDateUserInformation({navigation}) {
               setAadharNo(documentSnapshot.data().Aadhar_Number);
               setPanNo(documentSnapshot.data().PAN_Number);
               setPassportNo(documentSnapshot.data().Passport_Number);
+              setDrivingLicence(documentSnapshot.data().Driving_Licence);
               setVehicleType(documentSnapshot.data().Vehicle_Type);
               setVehicleNo(documentSnapshot.data().Vehicle_Number);
             }
@@ -502,8 +504,8 @@ export default function UpDateUserInformation({navigation}) {
             ref={drivingLicenseRef}
             blurOnSubmit={false}
             returnKeyType="next"
-            value={drivLicense}
-            onChangeText={text => setDrivLicense(text)}
+            value={drivingLicence}
+            onChangeText={text => setDrivingLicence(text)}
           />
           {/* vehicle information */}
           <Title style={styles.titleColor}> vehicle information</Title>

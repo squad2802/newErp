@@ -32,6 +32,7 @@ export default function UserInformationNav() {
   const [aadharNo, setAadharNo] = useState('');
   const [panNo, setPanNo] = useState('');
   const [passportNo, setPassportNo] = useState('');
+  const [drivingLicence, setDrivingLicence] = useState('');
   const [vehicleType, setVehicleType] = useState('');
   const [vehicleNo, setVehicleNo] = useState('');
 
@@ -71,6 +72,7 @@ export default function UserInformationNav() {
               setAadharNo(documentSnapshot.data().Aadhar_Number);
               setPanNo(documentSnapshot.data().PAN_Number);
               setPassportNo(documentSnapshot.data().Passport_Number);
+              setDrivingLicence(documentSnapshot.data().Driving_Licence);
               setVehicleType(documentSnapshot.data().Vehicle_Type);
               setVehicleNo(documentSnapshot.data().Vehicle_Number);
             }
@@ -156,7 +158,7 @@ export default function UserInformationNav() {
         <View style={styles.containerView}>
           <Text style={styles.fontStyle}>Driving licence:</Text>
           <Text>{'  '}</Text>
-          <Text style={styles.contentStyle}>123456782</Text>
+          <Text style={styles.contentStyle}>{drivingLicence}</Text>
         </View>
         {/* Vehicle Information */}
         <Title style={styles.titleHeading}>Vehicle information</Title>
